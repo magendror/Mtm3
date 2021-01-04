@@ -12,6 +12,7 @@ class DateWrap{
         bool operator<(const Date& date2) const;
         bool operator>=(const Date& date2) const;
         bool operator<=(const Date& date2) const;
+        bool operator!=(const Date& date2) const;
 };
 
 int DateWrap::year() const{
@@ -73,4 +74,8 @@ bool DateWrap::operator<=(const Date& date2) const{
     else{
         return false;
     }
+}
+
+bool DateWrap::operator!=(const Date& date2) const{
+    return !(date==date2);
 }
