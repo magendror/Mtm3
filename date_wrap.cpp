@@ -7,12 +7,12 @@ class DateWrap{
     public:
         DateWrap(int day,int month,int year);
         ~DateWrap();
-        DateWarp(const DateWarp& date_to_copy);
+        DateWrap(const DateWrap& date_to_copy);
         int year() const;
         int month() const;  
         int day() const;
         DateWrap& operator+=(const int days);
-        DateWrap& operator++();
+        DateWrap& operator++(int);
         bool operator==(const Date& date2) const;
         bool operator==(const Date& date2) const;
         bool operator>(const Date& date2) const;
@@ -20,16 +20,19 @@ class DateWrap{
         bool operator>=(const Date& date2) const;
         bool operator<=(const Date& date2) const;
         bool operator!=(const Date& date2) const;
+        bool operator+(const int& days) const;
 };
-DateWrap::DateWarp(int day,int month,int year){
-    date=dateCreate(day,month,year);
+
+DateWrap::DateWrap(int day,int month,int year):
+    date(dateCreate(day,month,year)){
     //should add invalid date exception 
 }
-DateWrap::~DateWarp(){
-    dateDestroy(date)
+DateWrap::~DateWrap(){
+    dateDestroy(date);
 }
-DateWarp(const DateWarp& date_to_copy){
-    date=dateCopy(date_to_copy);
+//problem because of const!!
+DateWrap::DateWrap(const DateWrap& date_to_copy):
+    date(dateCopy(date_to_copy)){
 }
 int DateWrap::year() const{
     int day,month,year;
@@ -47,10 +50,11 @@ int DateWrap::day() const{
     return day;
 }
 
-DateWrap& DateWarp::operator++(){
+DateWrap& DateWrap::operator++(int){
     dateTick(date);
+    return *this;
 }
-DateWrap& DateWarp::operator+=(const int days){
+DateWrap& DateWrap::operator+=(const int days){
     //should add exception 
     for(int i=0;i<days;i++){
         dateTick(date);
@@ -104,7 +108,14 @@ bool DateWrap::operator<=(const Date& date2) const{
 bool DateWrap::operator!=(const Date& date2) const{
     return !(date==date2);
 }
-
-ostream& operator<<(ostream& os,const DateWarp& date){
+//need to add to public with a friend
+ostream& operator<<(ostream& os,const DateWrap& date){
     return os<<day()<<"/"<<month()<<"/"<<year()<<"\n",
+}
+
+bool DateWrap::operator+(const int& days) const{
+    Date new_date = dateCopy(date);
+    for (int i=0;i<days;i++){
+        dateTick(new_date);
+    }
 }
