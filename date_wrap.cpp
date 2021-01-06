@@ -1,27 +1,14 @@
 #include "date.h"
+#include "date_wrap.h"
 #include <iostream>
-class DateWrap{
-    private:
-        Date date;
 
-    public:
-        DateWrap(int day,int month,int year);
-        ~DateWrap();
-        DateWrap(const DateWrap& date_to_copy);
-        int year() const;
-        int month() const;  
-        int day() const;
-        DateWrap& operator+=(const int days);
-        DateWrap& operator++(int);
-        bool operator==(const Date& date2) const;
-        bool operator==(const Date& date2) const;
-        bool operator>(const Date& date2) const;
-        bool operator<(const Date& date2) const;
-        bool operator>=(const Date& date2) const;
-        bool operator<=(const Date& date2) const;
-        bool operator!=(const Date& date2) const;
-        bool operator+(const int& days) const;
-};
+using std::ostream;
+using std::cout;
+using std::cerr;
+using std::cin;
+using std::endl;
+
+
 
 DateWrap::DateWrap(int day,int month,int year):
     date(dateCreate(day,month,year)){
@@ -31,8 +18,8 @@ DateWrap::~DateWrap(){
     dateDestroy(date);
 }
 //problem because of const!!
-DateWrap::DateWrap(const DateWrap& date_to_copy):
-    date(dateCopy(date_to_copy)){
+DateWrap::DateWrap(const DateWrap& date_to_copy){
+    DateWrap(date_to_copy.day(),date_to_copy.month(),date_to_copy.year());
 }
 int DateWrap::year() const{
     int day,month,year;
@@ -60,8 +47,8 @@ DateWrap& DateWrap::operator+=(const int days){
         dateTick(date);
     }
 }
-bool DateWrap::operator==(const Date& date2) const{
-    if(dateCompare(date,date2)==0){
+bool DateWrap::operator==(const DateWrap& date_wrap2) const{
+    if(dateCompare(date,date_wrap2.date)==0){
         return true;
     }
     else{
@@ -69,8 +56,8 @@ bool DateWrap::operator==(const Date& date2) const{
     }
 }
 
-bool DateWrap::operator<(const Date& date2) const{
-    if(dateCompare(date,date2)<0){
+bool DateWrap::operator<(const DateWrap& date_wrap2) const{
+    if(dateCompare(date,date_wrap2.date)<0){
         return true;
     }
     else{
@@ -78,8 +65,8 @@ bool DateWrap::operator<(const Date& date2) const{
     }
 }
 
-bool DateWrap::operator>(const Date& date2) const{
-    if(dateCompare(date,date2)>0){
+bool DateWrap::operator>(const DateWrap& date_wrap2) const{
+    if(dateCompare(date,date_wrap2.date)>0){
         return true;
     }
     else{
@@ -87,8 +74,8 @@ bool DateWrap::operator>(const Date& date2) const{
     }
 }
 
-bool DateWrap::operator>=(const Date& date2) const{
-    if(date>date2||date==date2){
+bool DateWrap::operator>=(const DateWrap& date_wrap2) const{
+    if(date>date_wrap2.date||date==date_wrap2.date){
         return true;
     }
     else{
@@ -96,8 +83,8 @@ bool DateWrap::operator>=(const Date& date2) const{
     }
 }
 
-bool DateWrap::operator<=(const Date& date2) const{
-    if(date<date2||date==date2){
+bool DateWrap::operator<=(const DateWrap& date_wrap2) const{
+    if(date<date_wrap2.date||date==date_wrap2.date){
         return true;
     }
     else{
@@ -105,17 +92,22 @@ bool DateWrap::operator<=(const Date& date2) const{
     }
 }
 
-bool DateWrap::operator!=(const Date& date2) const{
-    return !(date==date2);
+bool DateWrap::operator!=(const DateWrap& date_wrap2) const{
+    return !(date==date_wrap2.date);
 }
 //need to add to public with a friend
 ostream& operator<<(ostream& os,const DateWrap& date){
-    return os<<day()<<"/"<<month()<<"/"<<year()<<"\n",
+    return os<<date.day()<<"/"<<date.month()<<"/"<<date.year()<<"\n";
 }
 
-bool DateWrap::operator+(const int& days) const{
-    Date new_date = dateCopy(date);
-    for (int i=0;i<days;i++){
-        dateTick(new_date);
-    }
+DateWrap& operator+(const DateWrap& date_wrap,const int& days){
+    DateWrap new_date(date_wrap);
+    new_date+=days;
+    return new_date;
+}
+
+DateWrap& operator+(const int& days,const DateWrap& date_wrap) {
+    DateWrap new_date(date_wrap);
+    new_date+=days;
+    return new_date;
 }
