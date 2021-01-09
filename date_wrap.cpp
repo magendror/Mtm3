@@ -91,7 +91,7 @@ namespace mtm{
     }
 
     bool DateWrap::operator>=(const DateWrap& date_wrap2) const{
-        if((date>date_wrap2.date)||(date==date_wrap2.date)){
+        if((*this>date_wrap2)||(*this==date_wrap2)){
             return true;
         }
         else{
@@ -100,7 +100,7 @@ namespace mtm{
     }
 
     bool DateWrap::operator<=(const DateWrap& date_wrap2) const{
-        if((date<date_wrap2.date)||(date==date_wrap2.date)){
+        if((*this<date_wrap2)||(*this==date_wrap2)){
             return true;
         }
         else{
@@ -113,7 +113,7 @@ namespace mtm{
     }
     //need to add to public with a friend
     ostream& operator<<(ostream& os,const DateWrap& date){
-        return os<<date.day()<<"/"<<date.month()<<"/"<<date.year()<<"\n";
+        return os<<date.day()<<"/"<<date.month()<<"/"<<date.year();
     }
 
     DateWrap operator+(const DateWrap& date_wrap,const int& days){
