@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include "date_wrap.h"
+extern "C"{
+    #include "date.h"
+}
 
 using std::ostream;
 using std::cout;
@@ -13,7 +16,7 @@ using std::endl;
 namespace{
     class participantList {
         private:
-        int participant;
+        int participants;
         int* students;
 
         public:
@@ -29,8 +32,10 @@ namespace{
             mtm::DateWrap date;
             participantList list;
         public:
+            baseEvent(mtm::DateWrap event_date,char* event_name);
+            baseEvent::~baseEvent();
             void registerParticipant(int new_student);
-            void registerParticipant(int new_student);
+            void unregisterParticipant(int remove_student);
 
 
     };
