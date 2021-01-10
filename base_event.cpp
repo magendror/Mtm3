@@ -5,7 +5,7 @@ namespace{
         }
     
     participantList::~participantList(){
-            delete[] students;
+        delete[] students;
     }
     
     bool participantList::add(int new_student){
@@ -47,6 +47,11 @@ namespace{
         students = temp;
         return true;
     }
+    void participantList::printList(ostream& os){
+        for(int i=0;i<participants;i++)
+        os<<students[i]<<endl;
+    }
+
     baseEvent::baseEvent(mtm::DateWrap event_date,char* event_name):name(name.assign(event_name)),
                                                             date(event_date),list(){
     }
@@ -60,5 +65,13 @@ namespace{
         if(list.remove(remove_student)==false){
             //student is not in the list
         }
+    }
+
+    void baseEvent::printShort(ostream& os){
+        os<<name<<" "<<date;
+    }
+    void baseEvent::printLong(ostream& os){
+        os<<name<<" "<<date<<endl;
+        list.printList(os);
     }
 }

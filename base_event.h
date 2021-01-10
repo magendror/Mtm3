@@ -24,6 +24,7 @@ namespace{
         ~participantList();
         bool add(int new_student);
         bool remove(int remove_student);
+        void printList(ostream& os);
     };
 
     class baseEvent{
@@ -36,8 +37,8 @@ namespace{
             baseEvent::~baseEvent();
             void registerParticipant(int new_student);
             void unregisterParticipant(int remove_student);
-
-
+            void printShort(ostream& os);
+            void printLong(ostream& os);
     };
 }
 #endif
