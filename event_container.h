@@ -14,35 +14,43 @@ using std::cerr;
 using std::cin;
 using std::endl;
 //////////////////////////////////////////////////FrameEvent/////////////////////////////////////////
-
+namespace mtm{
+    class FrameEvent{
+        protected:
+            BaseEvent event;
+            BaseEvent* next;
+        public:
+            FrameEvent(const BaseEvent& event,BaseEvent* next =NULL);
+            ~FrameEvent();
+            FrameEvent(const FrameEvent& event_to_copy);
+            FrameEvent& operator=(const FrameEvent& event);
+    }
+}
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
 namespace mtm{
     class eventContainer{
         protected:
-            BaseEvent* event_list;
+            FrameEvent* event_list;
         public:
             eventContainer();
             virtual ~eventContainer();
-            virtual void add(const BaseEvent& event)=0;
+            virtual void add(const FrameEvent& event)=0;
             class eventIterator{
                 private:
-                    BaseEvent* event_iterator;
+                    FrameEvent* event_iterator;
                 public:
-                    eventIterator(){iterator=NULL;}
-                    eventIterator(const evenetIterator& iterator);
-                    ~evenetIterator();
-                    evenetIterator& operator=(const evenetIterator& iterator);
+                    eventIterator();
+                    eventIterator(const eventIterator& iterator);
+                    ~eventIterator();
+                    eventIterator& operator=(const eventIterator& iterator);
                     void operator++();
-                    baseEvent& operator*();
-                    bool operator==(const evenetIterator& iterator2);
-                    bool operator!=(const evenetIterator& iterator2);
+                    BaseEvent& operator*();
+                    bool operator==(const eventIterator& iterator2);
+                    bool operator!=(const eventIterator& iterator2);
 
             }
-            evenetIterator begin();
-            evenetIterator end();
+            eventIterator begin();
+            eventIterator end();
     }
 }
-
-
-
 #endif
