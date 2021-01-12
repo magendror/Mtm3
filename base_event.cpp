@@ -28,7 +28,7 @@ namespace mtm{
         }
         delete[] students;
         students = temp;
-        students[participants]=new_student;
+        students[participants-1]=new_student;
         return true;
     }
     
@@ -89,7 +89,7 @@ namespace mtm{
     }
 
     void BaseEvent::printShort(ostream& os) const {
-        os<<name<<" "<<date;
+        os<<name<<" "<<date<<endl;
     }
     void BaseEvent::printLong(ostream& os) const {
         os<<name<<" "<<date<<endl;

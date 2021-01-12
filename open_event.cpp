@@ -9,8 +9,8 @@ namespace mtm{
     OpenEvent::~OpenEvent(){}
 
     OpenEvent* OpenEvent::clone() const{
-        OpenEvent copy_of_event(date,name.c_str(),list);
-        return &copy_of_event;
+        OpenEvent* copy_of_event = new OpenEvent(date,name.c_str(),list);
+        return copy_of_event;
     }
 /*
     void baseEvent::registerParticipant(const int new_student){
@@ -33,5 +33,4 @@ namespace mtm{
         list.printList(os);
     }
 */
-
 }

@@ -13,34 +13,34 @@ using std::cout;
 using std::cerr;
 using std::cin;
 using std::endl;
+//////////////////////////////////////////////////FrameEvent/////////////////////////////////////////
 
+//////////////////////////////////////////////////eventContainer/////////////////////////////////////
 namespace mtm{
-
     class eventContainer{
         protected:
-            *baseEvent event_list;
+            BaseEvent* event_list;
         public:
             eventContainer();
             virtual ~eventContainer();
-            virtual void add(const &baseEvent event)=0;
+            virtual void add(const BaseEvent& event)=0;
             class eventIterator{
                 private:
-                    *baseEvent event_iterator;
+                    BaseEvent* event_iterator;
                 public:
                     eventIterator(){iterator=NULL;}
                     eventIterator(const evenetIterator& iterator);
                     ~evenetIterator();
                     evenetIterator& operator=(const evenetIterator& iterator);
                     void operator++();
-                    &baseEvent operator*();
-                    friend bool operator==(const evenetIterator& iterator1,const evenetIterator& iterator2 );
-                
+                    baseEvent& operator*();
+                    bool operator==(const evenetIterator& iterator2);
+                    bool operator!=(const evenetIterator& iterator2);
+
             }
             evenetIterator begin();
             evenetIterator end();
     }
-    bool operator!=(const evenetIterator& iterator1,const evenetIterator& iterator2 );
-
 }
 
 

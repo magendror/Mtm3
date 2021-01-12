@@ -9,13 +9,11 @@ namespace mtm{
                                                 mtm::BaseEvent(event_date,event_name,event_list),
                                                 invited_list(mtm::StudentList(invited_list)){}
 
-    ClosedEvent::~ClosedEvent(){
-        cout<<"out"<<endl;
-    }
+    ClosedEvent::~ClosedEvent(){}
 
     ClosedEvent* ClosedEvent::clone() const{
-        ClosedEvent copy_of_event(date,name.c_str(),list,invited_list);
-        return &copy_of_event;
+        ClosedEvent* copy_of_event = new ClosedEvent(date,name.c_str(),list,invited_list);
+        return copy_of_event;
     }
 
     void ClosedEvent::registerParticipant(const int new_student){
