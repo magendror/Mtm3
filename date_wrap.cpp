@@ -3,6 +3,7 @@ extern "C"{
 }
 #include "date_wrap.h"
 #include <iostream>
+#include "exceptions.h"
 
 using std::ostream;
 using std::cout;
@@ -13,8 +14,14 @@ using std::endl;
 namespace mtm{
 
     DateWrap::DateWrap(int day,int month,int year):
-        date(dateCreate(day,month,year)){
+        date(dateCheck(day,month,year)){
         //should add invalid date exception 
+    }
+    Date DateWrap::dateCheck(int day,int month,int year){
+        if((day>30||day<1)||(month>12||month<1)||(year<0)){
+            throw InvalidDate();
+        }
+        return dateCreate(day,month,year);
     }
 
     DateWrap::~DateWrap(){
@@ -56,7 +63,10 @@ namespace mtm{
         return *this;
     }
     DateWrap& DateWrap::operator+=(const int days){
-        //should add exception 
+        if (days<0)
+        {
+            throw NegativeDays();  
+        }
         for(int i=0;i<days;i++){
             dateTick(date);
         }
@@ -71,8 +81,7 @@ namespace mtm{
             return false;
         }
     }
-
-    bool DateWrap::operator<(const DateWrap& date_wrap2) const{
+    bool DateWrap::operator<(const DateWrap& date_wrap2) const {
         if(dateCompare(date,date_wrap2.date)<0){
             return true;
         }
@@ -117,12 +126,20 @@ namespace mtm{
     }
 
     DateWrap operator+(const DateWrap& date_wrap,const int& days){
+        if (days<0)
+        {
+            throw NegativeDays();  
+        }
         DateWrap new_date = DateWrap(date_wrap);
         new_date+=days;
         return new_date;
     }
 
     DateWrap operator+(const int& days,const DateWrap& date_wrap) {
+        if (days<0)
+        {
+            throw NegativeDays();  
+        }
         DateWrap new_date = DateWrap(date_wrap);
         new_date+=days;
         return new_date;

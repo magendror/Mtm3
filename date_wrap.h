@@ -5,6 +5,7 @@ extern "C"{
     #include "date.h"
 }
 #include <iostream>
+#include "exceptions.h"
 
 using std::ostream;
 using std::cout;
@@ -17,6 +18,7 @@ namespace mtm{
     class DateWrap{
         private:
             Date date;
+            static Date dateCheck(int day,int month,int year);
 
         public:
             DateWrap(int day,int month,int year);
