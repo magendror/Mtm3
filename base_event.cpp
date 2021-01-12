@@ -95,9 +95,8 @@ namespace mtm{
         list.printList(os);
     }
 
-    baseEvent* baseEvent::clone() const{
-        const char* name_in_char = name.c_str(); 
-        baseEvent copy_event(date,(char*)(name_in_char),list);
-        return &copy_event;
+    baseEvent* baseEvent::clone() const{/*
+        baseEvent copy_event(date,name.c_str(),list);
+        return &copy_event;*/
     }
 }

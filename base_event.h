@@ -29,19 +29,19 @@ namespace mtm{
     };
 
     class baseEvent{
-        private:
+        protected:
             std::string name;
             mtm::DateWrap date;
             participantList list;
         public:
             baseEvent(const mtm::DateWrap event_date,const char* event_name);
             baseEvent(const mtm::DateWrap event_date,const char* event_name,participantList event_list);
-            ~baseEvent();
-            void registerParticipant(const int new_student);
-            void unregisterParticipant(const int remove_student);
-            void printShort(ostream& os) const;
-            void printLong(ostream& os) const;
-            baseEvent* clone() const;
+            virtual ~baseEvent();
+            virtual void registerParticipant(const int new_student);
+            virtual void unregisterParticipant(const int remove_student);
+            virtual void printShort(ostream& os) const;
+            virtual void printLong(ostream& os) const;
+            virtual baseEvent* clone() const=0;
     };
 }
 #endif
