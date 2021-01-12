@@ -13,7 +13,7 @@ using std::cerr;
 using std::cin;
 using std::endl;
 
-namespace{
+namespace mtm{
     class participantList {
         private:
         int participants;
@@ -22,9 +22,10 @@ namespace{
         public:
         participantList ();
         ~participantList();
-        bool add(int new_student);
-        bool remove(int remove_student);
-        void printList(ostream& os);
+        participantList(const participantList& to_clone);
+        bool add(const int new_student);
+        bool remove(const int remove_student);
+        void printList(ostream& os) const;
     };
 
     class baseEvent{
@@ -33,12 +34,14 @@ namespace{
             mtm::DateWrap date;
             participantList list;
         public:
-            baseEvent(mtm::DateWrap event_date,char* event_name);
-            baseEvent::~baseEvent();
-            void registerParticipant(int new_student);
-            void unregisterParticipant(int remove_student);
-            void printShort(ostream& os);
-            void printLong(ostream& os);
+            baseEvent(const mtm::DateWrap event_date,const char* event_name);
+            baseEvent(const mtm::DateWrap event_date,const char* event_name,participantList event_list);
+            ~baseEvent();
+            void registerParticipant(const int new_student);
+            void unregisterParticipant(const int remove_student);
+            void printShort(ostream& os) const;
+            void printLong(ostream& os) const;
+            baseEvent* clone() const;
     };
 }
 #endif
