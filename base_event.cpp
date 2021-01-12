@@ -1,7 +1,7 @@
 #include "base_event.h"
 
 namespace mtm{
-////////////////////////////////////////ParticipantList////////////////////////////////////////////////
+////////////////////////////////////////studentList////////////////////////////////////////////////
     studentList::studentList ():participants(0),students(new int[1]){
         }
     
@@ -99,4 +99,23 @@ namespace mtm{
         baseEvent copy_event(date,name.c_str(),list);
         return &copy_event;*/
     }
+
+    bool baseEvent::operator<(const baseEvent& event2) const{
+        if(date<event2.date){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    bool baseEvent::operator>(const baseEvent& event2) const{
+        if(date>event2.date){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

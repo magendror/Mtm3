@@ -42,6 +42,8 @@ namespace mtm{
             virtual void printShort(ostream& os) const;
             virtual void printLong(ostream& os) const;
             virtual baseEvent* clone() const=0;
+            bool operator>(const baseEvent& event2) const;
+            bool operator<(const baseEvent& event2) const;
     };
 }
 #endif
