@@ -2,14 +2,14 @@
 
 namespace mtm{
 ////////////////////////////////////////ParticipantList////////////////////////////////////////////////
-    participantList::participantList ():participants(0),students(new int[1]){
+    studentList::studentList ():participants(0),students(new int[1]){
         }
     
-    participantList::~participantList(){
+    studentList::~studentList(){
         delete[] students;
     }
     
-    participantList::participantList(const participantList& to_clone){
+    studentList::studentList(const studentList& to_clone){
         participants = to_clone.participants;
         int* students = new int[participants];
         for (int i=0;i<participants;i++){
@@ -17,7 +17,7 @@ namespace mtm{
         }
     }
 
-    bool participantList::add(const int new_student){
+    bool studentList::add(const int new_student){
         for (int i=0; i<participants; i++){
             if (students[i]==new_student){
                 return false;
@@ -34,7 +34,7 @@ namespace mtm{
         return true;
     }
     
-    bool participantList::remove(const int remove_student){
+    bool studentList::remove(const int remove_student){
         bool student_registered = false;
         for (int i=0; i<participants; i++){
             if (students[i]==remove_student){
@@ -57,7 +57,7 @@ namespace mtm{
         return true;
     }
 
-    void participantList::printList(ostream& os) const{
+    void studentList::printList(ostream& os) const{
         for(int i=0;i<participants;i++)
         os<<students[i]<<endl;
     }
@@ -67,7 +67,7 @@ namespace mtm{
                                                             date(mtm::DateWrap(event_date)),
                                                             list(){
     }
-    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const participantList event_list):
+    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const studentList event_list):
                                                             name(name.assign(event_name)),
                                                             date(mtm::DateWrap(event_date)),
                                                             list(event_list){

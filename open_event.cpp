@@ -3,10 +3,16 @@
 namespace mtm{
     openEvent::openEvent(const mtm::DateWrap event_date,const char* event_name):
                                                 mtm::baseEvent(event_date,event_name){}
-    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const participantList event_list):
+    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const mtm::studentList event_list):
                                                 mtm::baseEvent(event_date,event_name,event_list){}
 
     baseEvent::~baseEvent(){}
+
+    openEvent* openEvent::clone() const{
+        const char* name_in_char = name.c_str(); 
+        openEvent copy_of_event(date,name.c_str(),list);
+        return &copy_of_event;
+    }
 /*
     void baseEvent::registerParticipant(const int new_student){
         if(list.add(new_student)==false){
@@ -28,9 +34,5 @@ namespace mtm{
         list.printList(os);
     }
 */
-    openEvent* openEvent::clone() const{
-        const char* name_in_char = name.c_str(); 
-        openEvent copy_of_event(date,name.c_str(),list);
-        return &copy_of_event;
-    }
+
 }

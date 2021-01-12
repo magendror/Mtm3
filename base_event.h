@@ -14,15 +14,15 @@ using std::cin;
 using std::endl;
 
 namespace mtm{
-    class participantList {
+    class studentList {
         private:
         int participants;
         int* students;
 
         public:
-        participantList ();
-        ~participantList();
-        participantList(const participantList& to_clone);
+        studentList ();
+        ~studentList();
+        studentList(const studentList& to_clone);
         bool add(const int new_student);
         bool remove(const int remove_student);
         void printList(ostream& os) const;
@@ -32,10 +32,10 @@ namespace mtm{
         protected:
             std::string name;
             mtm::DateWrap date;
-            participantList list;
+            studentList list;
         public:
             baseEvent(const mtm::DateWrap event_date,const char* event_name);
-            baseEvent(const mtm::DateWrap event_date,const char* event_name,participantList event_list);
+            baseEvent(const mtm::DateWrap event_date,const char* event_name,studentList event_list);
             virtual ~baseEvent();
             virtual void registerParticipant(const int new_student);
             virtual void unregisterParticipant(const int remove_student);

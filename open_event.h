@@ -18,8 +18,8 @@ namespace mtm{
     class openEvent: public baseEvent{
         public:
             openEvent(const mtm::DateWrap event_date,const char* event_name);
-            openEvent(const mtm::DateWrap event_date,const char* event_name,participantList event_list);
-            ~baseEvent() override;
+            openEvent(const mtm::DateWrap event_date,const char* event_name,mtm::studentList event_list);
+            ~openEvent() override;
             /*virtual void registerParticipant(const int new_student);
             virtual void unregisterParticipant(const int remove_student);
             virtual void printShort(ostream& os) const;
