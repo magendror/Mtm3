@@ -14,36 +14,37 @@ using std::cin;
 using std::endl;
 
 namespace mtm{
-    class studentList {
+    class StudentList {
         private:
         int participants;
         int* students;
 
         public:
-        studentList ();
-        ~studentList();
-        studentList(const studentList& to_clone);
+        StudentList ();
+        ~StudentList();
+        StudentList(const StudentList& to_clone);
         bool add(const int new_student);
         bool remove(const int remove_student);
+        bool contains(const int check_student);
         void printList(ostream& os) const;
     };
 
-    class baseEvent{
+    class BaseEvent{
         protected:
             std::string name;
             mtm::DateWrap date;
-            studentList list;
+            StudentList list;
         public:
-            baseEvent(const mtm::DateWrap event_date,const char* event_name);
-            baseEvent(const mtm::DateWrap event_date,const char* event_name,studentList event_list);
-            virtual ~baseEvent();
+            BaseEvent(const mtm::DateWrap event_date,const char* event_name);
+            BaseEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list);
+            virtual ~BaseEvent();
             virtual void registerParticipant(const int new_student);
             virtual void unregisterParticipant(const int remove_student);
             virtual void printShort(ostream& os) const;
             virtual void printLong(ostream& os) const;
-            virtual baseEvent* clone() const=0;
-            bool operator>(const baseEvent& event2) const;
-            bool operator<(const baseEvent& event2) const;
+            virtual BaseEvent* clone() const=0;
+            bool operator>(const BaseEvent& event2) const;
+            bool operator<(const BaseEvent& event2) const;
     };
 }
 #endif

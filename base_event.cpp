@@ -2,14 +2,14 @@
 
 namespace mtm{
 ////////////////////////////////////////studentList////////////////////////////////////////////////
-    studentList::studentList ():participants(0),students(new int[1]){
+    StudentList::StudentList ():participants(0),students(new int[1]){
         }
     
-    studentList::~studentList(){
+    StudentList::~StudentList(){
         delete[] students;
     }
     
-    studentList::studentList(const studentList& to_clone){
+    StudentList::StudentList(const StudentList& to_clone){
         participants = to_clone.participants;
         int* students = new int[participants];
         for (int i=0;i<participants;i++){
@@ -17,11 +17,9 @@ namespace mtm{
         }
     }
 
-    bool studentList::add(const int new_student){
-        for (int i=0; i<participants; i++){
-            if (students[i]==new_student){
-                return false;
-            }
+    bool StudentList::add(const int new_student){
+        if(this->contains(new_student)==true){
+            return false;
         }
         participants++;
         int* temp = new int[participants];
@@ -34,14 +32,8 @@ namespace mtm{
         return true;
     }
     
-    bool studentList::remove(const int remove_student){
-        bool student_registered = false;
-        for (int i=0; i<participants; i++){
-            if (students[i]==remove_student){
-                student_registered = true;
-            }
-        }
-        if(student_registered==false){
+    bool StudentList::remove(const int remove_student){
+        if(this->contains(remove_student)==false){
             return false;
         }
         participants--;
@@ -57,50 +49,59 @@ namespace mtm{
         return true;
     }
 
-    void studentList::printList(ostream& os) const{
+    bool StudentList::contains(const int check_student){
+        for (int i=0;i<participants;i++){
+            if(students[i]==check_student){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void StudentList::printList(ostream& os) const{
         for(int i=0;i<participants;i++)
         os<<students[i]<<endl;
     }
 ////////////////////////////////////////BaseEvent////////////////////////////////////////////////
 
-    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name):name(name.assign(event_name)),
+    BaseEvent::BaseEvent(const mtm::DateWrap event_date,const char* event_name):name(name.assign(event_name)),
                                                             date(mtm::DateWrap(event_date)),
-                                                            list(){
+                                                            list(mtm::StudentList()){
     }
-    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const studentList event_list):
+    BaseEvent::BaseEvent(const mtm::DateWrap event_date,const char* event_name,const StudentList event_list):
                                                             name(name.assign(event_name)),
                                                             date(mtm::DateWrap(event_date)),
-                                                            list(event_list){
+                                                            list(mtm::StudentList(event_list)){
     }
 
-    baseEvent::~baseEvent(){}
+    BaseEvent::~BaseEvent(){}
 
-    void baseEvent::registerParticipant(const int new_student){
+    void BaseEvent::registerParticipant(const int new_student){
         if(list.add(new_student)==false){
             //student is already here
         }
     }
 
-    void baseEvent::unregisterParticipant(const int remove_student){
+    void BaseEvent::unregisterParticipant(const int remove_student){
         if(list.remove(remove_student)==false){
             //student is not in the list
         }
     }
 
-    void baseEvent::printShort(ostream& os) const {
+    void BaseEvent::printShort(ostream& os) const {
         os<<name<<" "<<date;
     }
-    void baseEvent::printLong(ostream& os) const {
+    void BaseEvent::printLong(ostream& os) const {
         os<<name<<" "<<date<<endl;
         list.printList(os);
     }
 
-    baseEvent* baseEvent::clone() const{/*
+    BaseEvent* BaseEvent::clone() const{/*
         baseEvent copy_event(date,name.c_str(),list);
         return &copy_event;*/
     }
 
-    bool baseEvent::operator<(const baseEvent& event2) const{
+    bool BaseEvent::operator<(const BaseEvent& event2) const{
         if(date<event2.date){
             return true;
         }
@@ -109,7 +110,7 @@ namespace mtm{
         }
     }
 
-    bool baseEvent::operator>(const baseEvent& event2) const{
+    bool BaseEvent::operator>(const BaseEvent& event2) const{
         if(date>event2.date){
             return true;
         }

@@ -1,16 +1,15 @@
 #include "open_event.h"
 #include "base_event.h"
 namespace mtm{
-    openEvent::openEvent(const mtm::DateWrap event_date,const char* event_name):
-                                                mtm::baseEvent(event_date,event_name){}
-    baseEvent::baseEvent(const mtm::DateWrap event_date,const char* event_name,const mtm::studentList event_list):
-                                                mtm::baseEvent(event_date,event_name,event_list){}
+    OpenEvent::OpenEvent(const mtm::DateWrap event_date,const char* event_name):
+                                                mtm::BaseEvent(event_date,event_name){}
+    OpenEvent::OpenEvent(const mtm::DateWrap event_date,const char* event_name,const mtm::StudentList event_list):
+                                                mtm::BaseEvent(event_date,event_name,event_list){}
 
-    baseEvent::~baseEvent(){}
+    OpenEvent::~OpenEvent(){}
 
-    openEvent* openEvent::clone() const{
-        const char* name_in_char = name.c_str(); 
-        openEvent copy_of_event(date,name.c_str(),list);
+    OpenEvent* OpenEvent::clone() const{
+        OpenEvent copy_of_event(date,name.c_str(),list);
         return &copy_of_event;
     }
 /*
