@@ -19,6 +19,10 @@ namespace mtm{
         next=e.next;
         return *this;
     }
+    bool FrameEvent::operator==(const FrameEvent& event){
+        return(this->event==event.event&&this->next==event.next);
+
+    }
 }
 
 //////////////////////////////////////////////////eventIterator/////////////////////////////////////
@@ -39,14 +43,11 @@ namespace mtm{
         return *(this->event_iterator->event);
     }
     bool eventContainer::eventIterator::operator==(const eventIterator& iterator2){
+        return (this->event_iterator==iterator2.event_iterator);
 
     }
     bool eventContainer::eventIterator::operator!=(const eventIterator& iterator2){
-        
+        return !(this->event_iterator==iterator2.event_iterator);
     }
-
-
-
-    
-    
 }
+//////////////////////////////////////////////////eventContainer/////////////////////////////////////

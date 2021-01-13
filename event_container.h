@@ -23,6 +23,7 @@ namespace mtm{
             ~FrameEvent();
             FrameEvent(const FrameEvent& event_to_copy);
             FrameEvent& operator=(const FrameEvent& event);
+            bool operator==(const FrameEvent& event);
     }
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
@@ -35,6 +36,7 @@ namespace mtm{
             eventContainer()=default;
             virtual ~eventContainer()=default;
             virtual void add(const FrameEvent& event)=0;
+            
             class eventIterator{
                 private:
                     FrameEvent* event_iterator;
@@ -49,8 +51,9 @@ namespace mtm{
                     bool operator!=(const eventIterator& iterator2);
 
             }
-            eventIterator begin();
             eventIterator end();
+            eventIterator begin();
+
     }
 }
 #endif

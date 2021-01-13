@@ -10,10 +10,8 @@ namespace mtm {
 
         public:
             festival(const DateWrap date):date(date){};
-            void add(const &baseEvent event) override;
+            void add(const BaseEvent& event) override;
     }
 
 }
-
-
 #endif
