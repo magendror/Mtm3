@@ -34,6 +34,7 @@ namespace mtm{
             std::string name;
             mtm::DateWrap date;
             StudentList list;
+            static std::string assign(const char* event_name);
         public:
             BaseEvent(const mtm::DateWrap event_date,const char* event_name);
             BaseEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list);

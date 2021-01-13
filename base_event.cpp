@@ -64,7 +64,7 @@ namespace mtm{
     }
 ////////////////////////////////////////BaseEvent////////////////////////////////////////////////
 
-    BaseEvent::BaseEvent(const mtm::DateWrap event_date,const char* event_name):name(name.assign(event_name)),
+    BaseEvent::BaseEvent(const mtm::DateWrap event_date,const char* event_name):name(assign(event_name)),
                                                             date(mtm::DateWrap(event_date)),
                                                             list(mtm::StudentList()){
     }
@@ -76,15 +76,21 @@ namespace mtm{
 
     BaseEvent::~BaseEvent(){}
 
+    std::string BaseEvent::assign(const char* event_name){
+        std::string new_name;
+        new_name.assign(event_name);
+        return new_name;
+    }
+
     void BaseEvent::registerParticipant(const int new_student){
         if(list.add(new_student)==false){
-            //student is already here
+            throw AlreadyRegistered();
         }
     }
 
     void BaseEvent::unregisterParticipant(const int remove_student){
         if(list.remove(remove_student)==false){
-            //student is not in the list
+            throw NotRegistered();
         }
     }
 
@@ -96,10 +102,10 @@ namespace mtm{
         list.printList(os);
     }
 
-    BaseEvent* BaseEvent::clone() const{/*
+    /*BaseEvent* BaseEvent::clone() const{
         baseEvent copy_event(date,name.c_str(),list);
-        return &copy_event;*/
-    }
+        return &copy_event;
+    }*/
 
     bool BaseEvent::operator<(const BaseEvent& event2) const{
         if(date<event2.date){

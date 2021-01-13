@@ -19,11 +19,20 @@ namespace mtm{
     void ClosedEvent::registerParticipant(const int new_student){
         if(invited_list.contains(new_student)){
             if(list.add(new_student)==false){
-            //student is already here
+                throw AlreadyRegistered();
             }
         }
         else{
-            //student is not invited
+            throw RegistrationBlocked();
+        }
+    }
+
+    void ClosedEvent::addInvitee(const int new_student){
+        if(invited_list.contains(new_student)){
+            throw AlreadyInvited();  
+        }
+        else{
+            invited_list.add(new_student);
         }
     }
 /*

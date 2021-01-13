@@ -24,6 +24,7 @@ namespace mtm{
                         const mtm::StudentList event_list,const mtm::StudentList invited_list);
             ~ClosedEvent();
             void registerParticipant(const int new_student) override;
+            void addInvitee(const int new_student);
             /*virtual void unregisterParticipant(const int remove_student);
             virtual void printShort(ostream& os) const;
             virtual void printLong(ostream& os) const;*/
