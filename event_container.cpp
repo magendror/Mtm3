@@ -21,8 +21,32 @@ namespace mtm{
     }
 }
 
-//////////////////////////////////////////////////eventContainer/////////////////////////////////////
+//////////////////////////////////////////////////eventIterator/////////////////////////////////////
 
 namespace mtm{
+    eventContainer::eventIterator::eventIterator(const eventIterator& iterator):event_iterator(*FrameEvent(iterator.event_list,iterator.next)){}
+    eventContainer::eventIterator::eventIterator& eventContainer::eventIterator::operator=(const eventIterator& iterator){
+        if(this==&iterator){
+            return *this;
+        }
+
+
+    }
+    void eventContainer::eventIterator::operator++(){
+        this->event_iterator->event=this->event_iterator->next;
+    }
+    BaseEvent& eventContainer::eventIterator::operator*(){
+        return *(this->event_iterator->event);
+    }
+    bool eventContainer::eventIterator::operator==(const eventIterator& iterator2){
+
+    }
+    bool eventContainer::eventIterator::operator!=(const eventIterator& iterator2){
+        
+    }
+
+
+
+    
     
 }

@@ -16,10 +16,9 @@ using std::endl;
 //////////////////////////////////////////////////FrameEvent/////////////////////////////////////////
 namespace mtm{
     class FrameEvent{
-        protected:
-            BaseEvent event;
-            BaseEvent* next;
         public:
+            BaseEvent* event;
+            BaseEvent* next;
             FrameEvent(const BaseEvent& event,BaseEvent* next =NULL);
             ~FrameEvent();
             FrameEvent(const FrameEvent& event_to_copy);
@@ -30,18 +29,19 @@ namespace mtm{
 namespace mtm{
     class eventContainer{
         protected:
+            FrameEvent* first_event;
             FrameEvent* event_list;
         public:
-            eventContainer();
-            virtual ~eventContainer();
+            eventContainer()=default;
+            virtual ~eventContainer()=default;
             virtual void add(const FrameEvent& event)=0;
             class eventIterator{
                 private:
                     FrameEvent* event_iterator;
                 public:
-                    eventIterator();
+                    eventIterator()=default;
                     eventIterator(const eventIterator& iterator);
-                    ~eventIterator();
+                    ~eventIterator()=default;
                     eventIterator& operator=(const eventIterator& iterator);
                     void operator++();
                     BaseEvent& operator*();
