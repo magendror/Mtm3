@@ -18,7 +18,7 @@ namespace mtm{
     class FrameEvent{
         public:
             BaseEvent* event;
-            BaseEvent* next;
+            FrameEvent* next;
             FrameEvent(const BaseEvent& event,BaseEvent* next =NULL);
             ~FrameEvent();
             FrameEvent(const FrameEvent& event_to_copy);
@@ -51,8 +51,8 @@ namespace mtm{
                     bool operator!=(const eventIterator& iterator2);
 
             }
-            eventIterator end();
-            eventIterator begin();
+            eventIterator* end();
+            eventIterator* begin();
 
     }
 }

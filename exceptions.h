@@ -11,6 +11,10 @@ namespace mtm {
     class RegistrationBlocked : public Exception {};
     class AlreadyRegistered : public Exception {};
     class NotRegistered : public Exception {};
+    class DateMismatch : public Exception {};
+    class InvalidNumber : public Exception {};
+    class InvalidInterval : public Exception {};
+    class NotSupported : public Exception {};
 }
 
 #endif
