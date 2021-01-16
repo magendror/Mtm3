@@ -127,5 +127,14 @@ namespace mtm{
             return false;
         }
     }
+    bool BaseEvent::sameDate(const mtm::DateWrap date2) const{
+        if(date==date2){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
 
 }

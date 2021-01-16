@@ -46,6 +46,7 @@ namespace mtm{
             virtual BaseEvent* clone() const=0;
             bool operator>(const BaseEvent& event2) const;
             bool operator<(const BaseEvent& event2) const;
+            bool sameDate(const mtm::DateWrap date2) const;
     };
 }
 #endif
