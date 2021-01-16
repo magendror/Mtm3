@@ -31,6 +31,9 @@ namespace mtm{
 
     template <class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(const int new_student){
+        if((new_student>200000)||(new_student<=0)){
+            throw RegistrationBlocked();
+        }
         if (register_key(new_student)==true){
             if(list.add(new_student)==false){
                 throw AlreadyRegistered();

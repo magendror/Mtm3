@@ -83,6 +83,9 @@ namespace mtm{
     }
 
     void BaseEvent::registerParticipant(const int new_student){
+        if((new_student>200000)||(new_student<=0)){
+            throw RegistrationBlocked();
+        }
         if(list.add(new_student)==false){
             throw AlreadyRegistered();
         }

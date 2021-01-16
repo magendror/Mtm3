@@ -17,6 +17,9 @@ namespace mtm{
     }
 
     void ClosedEvent::registerParticipant(const int new_student){
+        if((new_student>200000)||(new_student<=0)){
+            throw RegistrationBlocked();
+        }
         if(invited_list.contains(new_student)){
             if(list.add(new_student)==false){
                 throw AlreadyRegistered();
