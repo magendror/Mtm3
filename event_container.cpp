@@ -2,52 +2,64 @@
 
 ///////////////////////////////////////FrameEvent////////////////////////////////////////////////
 namespace mtm{
-    FrameEvent::FrameEvent(const BaseEvent& base_event,BaseEvent* next_event =NULL):event(base_event),next(new BaseEvent[1]){
-        this->next=next_event;
-    }
-    FrameEvent::~FrameEvent(){
-        delete[] next;
-    }
+    FrameEvent::FrameEvent(const BaseEvent& base_event,FrameEvent* next_event =NULL):event(base_event),next(next_event){}
+
+    FrameEvent::~FrameEvent(){}
+
     FrameEvent::FrameEvent(const FrameEvent& event_to_copy):event(event_to_copy.event),next(event_to_copy.next){}
-    FrameEvent& FrameEvent::operator=(const FrameEvent& e){
-        if(this==&e){
-            return *this;
-        }
-        delete[] next;
-        next=new BaseEvent[1];
-        event=e.event;
-        next=e.next;
-        return *this;
-    }
+
     bool FrameEvent::operator==(const FrameEvent& event){
         return(this->event==event.event&&this->next==event.next);
-
     }
 }
 
 //////////////////////////////////////////////////eventIterator/////////////////////////////////////
 
 namespace mtm{
-    eventContainer::eventIterator::eventIterator(const eventIterator& iterator):event_iterator(*FrameEvent(iterator.event_list,iterator.next)){}
+    eventContainer::eventIterator::eventIterator(FrameEvent* ptr_to_event=NULL):event_iterator(ptr_to_event){}
+
+    eventContainer::eventIterator::eventIterator(const eventIterator& iterator):event_iterator(iterator.event_iterator){}
+
     eventContainer::eventIterator::eventIterator& eventContainer::eventIterator::operator=(const eventIterator& iterator){
         if(this==&iterator){
             return *this;
         }
-
-
+        event_iterator=iterator.event_iterator;
     }
+
     void eventContainer::eventIterator::operator++(){
-        this->event_iterator->event=this->event_iterator->next;
+        if(event_iterator==NULL){
+            throw EndOfContainer();
+        }
+        event_iterator=event_iterator->next;
     }
+
     BaseEvent& eventContainer::eventIterator::operator*(){
-        return *(this->event_iterator->event);
+        return event_iterator->event;
     }
+
     bool eventContainer::eventIterator::operator==(const eventIterator& iterator2){
-        return (this->event_iterator==iterator2.event_iterator);
+        return (event_iterator==iterator2.event_iterator);
 
     }
+
     bool eventContainer::eventIterator::operator!=(const eventIterator& iterator2){
-        return !(this->event_iterator==iterator2.event_iterator);
+        return !(event_iterator==iterator2.event_iterator);
+    }
+
+    void eventContainer::eventIterator::setNext(FrameEvent* next_event){
+        event_iterator->next=next_event;
     }
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
+namespace mtm{
+    eventContainer::eventContainer():first_event(NULL){}
+
+    eventContainer::eventIterator eventContainer::end(){
+        return eventContainer::eventIterator(NULL);
+    }
+
+    eventContainer::eventIterator eventContainer::begin(){
+        return eventContainer::eventIterator(first_event);
+    }
+}

@@ -136,5 +136,19 @@ namespace mtm{
         }
         
     }
+    bool BaseEvent::operator==(const BaseEvent& event2) const{
+        return((date==event2.date)&&(name==event2.name));
+    }
 
+    int BaseEvent::nameCompare(BaseEvent& event2){
+        if(name>event2.name){
+            return 1;
+        }
+        else if (name<event2.name){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
 }

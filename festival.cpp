@@ -1,19 +1,19 @@
 #include "festival.h"
 
 namespace mtm{
-    void festival::add(const FrameEvent& event){
-        if(this->date!=event.event.date){
-            throw(DateMismatch);
+    void festival::add(BaseEvent& event){
+        if(!event.sameDate(date)){
+            throw DateMismatch();
         }
-        if(this->first_event==NULL){
-            this->date=event.date;//waiting for date permission
-            *this->first_event=event;
-            *this->event_list=event;
+        FrameEvent frame(event);
+        if(first_event==NULL){
+            first_event=event;//waiting for date permission
         }
-        FrameEvent* iterator=this.begin();
-        FrameEvent* privios_iterator=NULL;
-        while(iterator!=NULL){
-            if(event.name<iterator.event.name){
+        eventContainer::eventIterator iterator=this->begin();
+        eventContainer::eventIterator previous_iterator=NULL;
+        while(iterator!=this->end()){
+            if(event.nameCompare(*iterator)<0){
+                previous_iterator.setNext(&frame);
                 privios_iterator->next=event.event;
                 event.next=iterator->event;
             }

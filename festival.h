@@ -2,6 +2,7 @@
 #define FESTIVAL_H_
 
 #include "event_container.h"
+#include "date_wrap.h"
 
 namespace mtm {
     class festival: public eventContainer{
@@ -10,8 +11,7 @@ namespace mtm {
 
         public:
             festival(const DateWrap date):date(date){};
-            void add(const FrameEvent& event) override;
-    }
-
+            void add(BaseEvent& event) override;
+    };
 }
 #endif
