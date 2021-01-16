@@ -16,50 +16,50 @@ namespace mtm{
 //////////////////////////////////////////////////eventIterator/////////////////////////////////////
 
 namespace mtm{
-    eventContainer::eventIterator::eventIterator(FrameEvent* ptr_to_event=NULL):event_iterator(ptr_to_event){}
+    EventContainer::EventIterator::EventIterator(FrameEvent* ptr_to_event=NULL):event_iterator(ptr_to_event){}
 
-    eventContainer::eventIterator::eventIterator(const eventIterator& iterator):event_iterator(iterator.event_iterator){}
+    EventContainer::EventIterator::EventIterator(const EventIterator& iterator):event_iterator(iterator.event_iterator){}
 
-    eventContainer::eventIterator::eventIterator& eventContainer::eventIterator::operator=(const eventIterator& iterator){
+    EventContainer::EventIterator::EventIterator& EventContainer::EventIterator::operator=(const EventIterator& iterator){
         if(this==&iterator){
             return *this;
         }
         event_iterator=iterator.event_iterator;
     }
 
-    void eventContainer::eventIterator::operator++(){
+    void EventContainer::EventIterator::operator++(){
         if(event_iterator==NULL){
             throw EndOfContainer();
         }
         event_iterator=event_iterator->next;
     }
 
-    BaseEvent& eventContainer::eventIterator::operator*(){
+    BaseEvent& EventContainer::EventIterator::operator*(){
         return event_iterator->event;
     }
 
-    bool eventContainer::eventIterator::operator==(const eventIterator& iterator2){
+    bool EventContainer::EventIterator::operator==(const EventIterator& iterator2){
         return (event_iterator==iterator2.event_iterator);
 
     }
 
-    bool eventContainer::eventIterator::operator!=(const eventIterator& iterator2){
+    bool EventContainer::EventIterator::operator!=(const EventIterator& iterator2){
         return !(event_iterator==iterator2.event_iterator);
     }
 
-    void eventContainer::eventIterator::setNext(FrameEvent* next_event){
+    void EventContainer::EventIterator::setNext(FrameEvent* next_event){
         event_iterator->next=next_event;
     }
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
 namespace mtm{
-    eventContainer::eventContainer():first_event(NULL){}
+    EventContainer::EventContainer():first_event(NULL){}
 
-    eventContainer::eventIterator eventContainer::end(){
-        return eventContainer::eventIterator(NULL);
+    EventContainer::EventIterator EventContainer::end(){
+        return EventContainer::EventIterator(NULL);
     }
 
-    eventContainer::eventIterator eventContainer::begin(){
-        return eventContainer::eventIterator(first_event);
+    EventContainer::EventIterator EventContainer::begin(){
+        return EventContainer::EventIterator(first_event);
     }
 }

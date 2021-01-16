@@ -28,30 +28,30 @@ namespace mtm{
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
 namespace mtm{
-    class eventContainer{
+    class EventContainer{
         protected:
             FrameEvent* first_event;
         public:
-            eventContainer();
-            virtual ~eventContainer()=default;
+            EventContainer();
+            virtual ~EventContainer()=default;
             virtual void add(const BaseEvent& event)=0;
-            class eventIterator{
+            class EventIterator{
                 protected:
                     FrameEvent* event_iterator;
                 public:
-                    eventIterator(FrameEvent* ptr_to_event);
-                    eventIterator(const eventIterator& iterator);
-                    ~eventIterator()=default;
-                    eventIterator& operator=(const eventIterator& iterator);
+                    EventIterator(FrameEvent* ptr_to_event);
+                    EventIterator(const EventIterator& iterator);
+                    ~EventIterator()=default;
+                    EventIterator& operator=(const EventIterator& iterator);
                     void operator++();
                     BaseEvent& operator*();
-                    bool operator==(const eventIterator& iterator2);
-                    bool operator!=(const eventIterator& iterator2);
+                    bool operator==(const EventIterator& iterator2);
+                    bool operator!=(const EventIterator& iterator2);
                     void setNext(FrameEvent* next_event);
 
             };
-            eventIterator end();
-            eventIterator begin();
+            EventIterator end();
+            EventIterator begin();
     };
 }
 #endif

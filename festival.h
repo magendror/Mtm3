@@ -5,12 +5,12 @@
 #include "date_wrap.h"
 
 namespace mtm {
-    class festival: public eventContainer{
+    class Festival: public EventContainer{
         private:
             DateWrap date;
 
         public:
-            festival(const DateWrap date):date(date){};
+            Festival(const DateWrap date):date(date){};
             void add(BaseEvent& event) override;
     };
 }

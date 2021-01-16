@@ -4,7 +4,7 @@
 #include <iostream>
 namespace mtm{
     template <class EventType>
-    class RecurringEvent: public eventContainer{
+    class RecurringEvent: public EventContainer{
         private:
             int num_occurrence;
             int interval_days;
@@ -31,7 +31,7 @@ namespace mtm{
             }
 
 
-    }
+    };
 
 }
 #endif

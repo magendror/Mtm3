@@ -5,7 +5,7 @@
 
 namespace mtm{
     template <class EventType>
-    class OneTimeEvent: public eventContainer{
+    class OneTimeEvent: public EventContainer{
         private:
             FrameEvent event;
         public:
@@ -13,6 +13,6 @@ namespace mtm{
              void add(const FrameEvent& event) override{
                 throw(NotSupported);
             }
-    }
+    };
 }
 #endif
