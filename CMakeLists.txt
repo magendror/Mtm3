@@ -8,5 +8,5 @@ set(MTM_FLAGS_RELEASE "{MTM_FLAGS_DEBUG} -DNDEBUG")
 set(CMAKE_CXX_FLAGS ${MTM_FLAGS_DEBUG})
 
 add_library(date date.c date.h)
-add_executable(ex3B open_event.cpp custom_event.h base_event.cpp closed_event.cpp date_wrap.cpp event_container.cpp festival.cpp try.cpp exceptions.h)
+add_executable(ex3B open_event.cpp custom_event.h base_event.cpp closed_event.cpp date_wrap.cpp event_container.cpp festival.cpp one_time_event.h recurring_event.h try.cpp exceptions.h)
 target_link_libraries(ex3B -ldate)

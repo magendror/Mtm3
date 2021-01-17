@@ -10,7 +10,7 @@ namespace mtm{
             FrameEvent event;
         public:
             OneTimeEvent(const DateWrap date,const std::string name):event(EventType(date,name)){}
-             void add(const FrameEvent& event) override{
+             void add(const BaseEvent& event) override{
                 throw NotSupported();
             }
     };
