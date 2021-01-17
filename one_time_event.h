@@ -11,7 +11,7 @@ namespace mtm{
         public:
             OneTimeEvent(const DateWrap date,const std::string name):event(EventType(date,name)){}
              void add(const FrameEvent& event) override{
-                throw(NotSupported);
+                throw NotSupported();
             }
     };
 }

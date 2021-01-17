@@ -7,11 +7,12 @@
 namespace mtm {
     class Festival: public EventContainer{
         private:
-            DateWrap date;
+            const DateWrap date;
 
         public:
             Festival(const DateWrap date):date(date){};
-            void add(BaseEvent& event) override;
+            // Festival(const DateWrap date):date(date){};
+            void add(const BaseEvent& event) override;
     };
 }
 #endif

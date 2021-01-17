@@ -48,7 +48,7 @@ namespace mtm{
             bool operator<(const BaseEvent& event2) const;
             bool sameDate(const mtm::DateWrap date2) const;
             bool operator==(const BaseEvent& event2) const;
-            int nameCompare(BaseEvent& event2);
+            int nameCompare(const BaseEvent& event2) const;//adding const
     };
 }
 #endif

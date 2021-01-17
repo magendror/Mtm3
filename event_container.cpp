@@ -2,8 +2,6 @@
 
 ///////////////////////////////////////FrameEvent////////////////////////////////////////////////
 namespace mtm{
-    FrameEvent::FrameEvent(const BaseEvent& base_event,FrameEvent* next_event =NULL):event(base_event),next(next_event){}
-
     FrameEvent::~FrameEvent(){}
 
     FrameEvent::FrameEvent(const FrameEvent& event_to_copy):event(event_to_copy.event),next(event_to_copy.next){}
@@ -20,13 +18,16 @@ namespace mtm{
 
     EventContainer::EventIterator::EventIterator(const EventIterator& iterator):event_iterator(iterator.event_iterator){}
 
-    EventContainer::EventIterator::EventIterator& EventContainer::EventIterator::operator=(const EventIterator& iterator){
+    EventContainer::EventIterator& EventContainer::EventIterator::operator=(const EventIterator& iterator){
         if(this==&iterator){
             return *this;
         }
         event_iterator=iterator.event_iterator;
+        return *this;
+    
     }
 
+    
     void EventContainer::EventIterator::operator++(){
         if(event_iterator==NULL){
             throw EndOfContainer();
@@ -34,7 +35,7 @@ namespace mtm{
         event_iterator=event_iterator->next;
     }
 
-    BaseEvent& EventContainer::EventIterator::operator*(){
+    const BaseEvent& EventContainer::EventIterator::operator*()const{
         return event_iterator->event;
     }
 
@@ -53,8 +54,6 @@ namespace mtm{
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
 namespace mtm{
-    EventContainer::EventContainer():first_event(NULL){}
-
     EventContainer::EventIterator EventContainer::end(){
         return EventContainer::EventIterator(NULL);
     }

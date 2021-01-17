@@ -4,6 +4,9 @@
 #include "date_wrap.h"
 #include "exceptions.h"
 #include "open_event.h"
+#include "recurring_event.h"
+#include "event_container.h"
+#include "festival.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -13,12 +16,40 @@ struct StudentFilter {
     }
 };
 
+// int main(int argc, char* argv[]) {
+//     mtm::StudentList klo;
+//     klo.add(1);
+//     mtm::OpenEvent open(mtm::DateWrap(21, 10, 2020),"A Custom Event");
+//     //mtm::CustomEvent<StudentFilter> custom(mtm::DateWrap(21, 10, 2020),"A Custom Event", StudentFilter());
+//     open.registerParticipant(1);
+//     open.printShort(cout);
+//     return 0;
+// }
+
 int main(int argc, char* argv[]) {
     mtm::StudentList klo;
     klo.add(1);
     mtm::OpenEvent open(mtm::DateWrap(21, 10, 2020),"A Custom Event");
-    //mtm::CustomEvent<StudentFilter> custom(mtm::DateWrap(21, 10, 2020),"A Custom Event", StudentFilter());
-    open.registerParticipant(1);
-    open.printShort(cout);
-    return 0;
+    open.printLong(cout);
+    mtm::OpenEvent open1(mtm::DateWrap(21, 10, 2020),"open1");
+    mtm::ClosedEvent close1(mtm::DateWrap(21, 10, 2020),"close1");
+    mtm::Festival festival1(mtm::DateWrap(21, 10, 2020));
+    festival1.add(close1);
+    festival1.add(open);
+    festival1.add(open1);
+    festival1.add(close1);
+    
+    mtm::EventContainer::EventIterator iter=festival1.begin();
+    for(;iter!=festival1.end();++iter){
+        const mtm::BaseEvent& curr_event=*iter;
+        curr_event.printShort(cout);
+    }
+
+
+
+
+
+    // mtm::RecurringEvent<mtm::OpenEvent> revent(mtm::DateWrap(21, 10, 2020),"A Custom Event",3,2);
+
+
 }

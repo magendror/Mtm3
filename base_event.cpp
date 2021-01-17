@@ -140,7 +140,7 @@ namespace mtm{
         return((date==event2.date)&&(name==event2.name));
     }
 
-    int BaseEvent::nameCompare(BaseEvent& event2){
+    int BaseEvent::nameCompare(const BaseEvent& event2)const{
         if(name>event2.name){
             return 1;
         }
