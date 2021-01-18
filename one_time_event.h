@@ -9,8 +9,10 @@ namespace mtm{
         private:
             FrameEvent event;
         public:
-            OneTimeEvent(const DateWrap date,const std::string name):event(EventType(date,name)){}
-             void add(const BaseEvent& event) override{
+            OneTimeEvent(const DateWrap date,const char* name):event(FrameEvent(EventType(date,name))){
+                first_event=&event;
+            }
+            void add(const BaseEvent& event) override{
                 throw NotSupported();
             }
     };

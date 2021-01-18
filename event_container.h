@@ -30,7 +30,7 @@ namespace mtm{
 namespace mtm{
     class EventContainer{
         protected:
-            FrameEvent* first_event;
+            FrameEvent* first_event;//
         public:
             EventContainer():first_event(NULL){};
             virtual ~EventContainer()=default;

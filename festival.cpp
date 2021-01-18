@@ -7,7 +7,8 @@ namespace mtm{
         }
         FrameEvent frame(event);//
         if(first_event==NULL){
-            first_event=&frame;
+            first_event->event=event;
+            first_event->event=NULL;
             return;
         }
         EventContainer::EventIterator iterator=this->begin();
