@@ -7,7 +7,7 @@ namespace mtm{
         }
         FrameEvent frame(event);//
         if(first_event==NULL){
-            first_event->event=event;
+            first_event->event=event;//need to be the frame!
             first_event->event=NULL;
             return;
         }
@@ -15,7 +15,7 @@ namespace mtm{
         EventContainer::EventIterator previous_iterator(NULL);
         while(iterator!=this->end()){
             if(event.nameCompare(*iterator)<0){
-                previous_iterator.setNext(&frame);
+                previous_iterator.setNext(&frame);//maybe here saves pointer to local frame?
                 previous_iterator.event_iterator->next=&frame;
                 frame.next=iterator.event_iterator;
                 return;
