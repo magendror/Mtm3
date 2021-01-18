@@ -8,11 +8,12 @@ namespace mtm {
     class Festival: public EventContainer{
         private:
             const DateWrap date;
-
+            void addAux(FrameEvent* frame, BaseEvent& event_reference);
         public:
-            Festival(const DateWrap date):date(date){};
-            // Festival(const DateWrap date):date(date){};
-            void add(const BaseEvent& event) override;
+            ~Festival() override;
+            Festival(const DateWrap date);
+            void add(BaseEvent& event_reference) override;
+            
     };
 }
 #endif

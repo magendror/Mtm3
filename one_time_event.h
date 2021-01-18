@@ -7,12 +7,21 @@ namespace mtm{
     template <class EventType>
     class OneTimeEvent: public EventContainer{
         private:
-            FrameEvent event;
-        public:
-            OneTimeEvent(const DateWrap date,const char* name):event(FrameEvent(EventType(date,name))){
-                first_event=&event;
+            EventType* event;
+            FrameEvent* eventCreate(const mtm::DateWrap date,const char* name){
+                event = new EventType(date,name);
+                FrameEvent* frame = new FrameEvent(*event);
+                return frame;
             }
-            void add(const BaseEvent& event) override{
+        public:
+            OneTimeEvent(const DateWrap date,const char* name):EventContainer(){
+                first_event=eventCreate(date,name);
+            }
+            ~OneTimeEvent(){
+                delete event;
+                delete first_event;
+            }
+            void add(BaseEvent& event) override{
                 throw NotSupported();
             }
     };

@@ -5,9 +5,9 @@
 #include "event_container.h"
 #include "exceptions.h"
 #include "festival.h"
-//#include "one_time_event.h"
+#include "one_time_event.h"
 #include "open_event.h"
-//#include "recurring_event.h"
+#include "recurring_event.h"
 #include <cstdlib>
 #include <iostream>
 

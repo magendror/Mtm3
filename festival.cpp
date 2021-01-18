@@ -1,31 +1,47 @@
 #include "festival.h"
 
 namespace mtm{
-    void Festival::add(const BaseEvent& event){
-        if(!event.sameDate(date)){
+
+    Festival::Festival(const DateWrap date):date(date){}
+    Festival::~Festival(){
+        EventContainer::EventIterator iterator=this->begin();
+        while(iterator!=this->end()){
+            EventContainer::EventIterator previous_iterator=iterator;
+            ++iterator;
+            delete previous_iterator.framePtr();
+        }
+    }
+
+    void Festival::add(BaseEvent& event_reference){
+        if(!event_reference.sameDate(date)){
             throw DateMismatch();
         }
-        FrameEvent frame(event);//
+        FrameEvent* frame = new FrameEvent(event_reference);//
         if(first_event==NULL){
-            first_event->event=event;//need to be the frame!
-            first_event->event=NULL;
+            first_event=frame;
             return;
         }
+        addAux(frame,event_reference);   
+    }
+
+    void Festival::addAux(FrameEvent* frame, BaseEvent& event_reference){
         EventContainer::EventIterator iterator=this->begin();
         EventContainer::EventIterator previous_iterator(NULL);
         while(iterator!=this->end()){
-            if(event.nameCompare(*iterator)<0){
-                previous_iterator.setNext(&frame);//maybe here saves pointer to local frame?
-                previous_iterator.event_iterator->next=&frame;
-                frame.next=iterator.event_iterator;
+            if(event_reference.nameCompare(*iterator)<0){
+                if(previous_iterator.framePtr()==NULL){
+                    frame->next=first_event;
+                    first_event=frame;
+                }
+                else{
+                    previous_iterator.setNext(frame);//maybe here saves pointer to local frame?
+                    frame->next=iterator.framePtr();  
+                }
                 return;
             }
             previous_iterator=iterator;
-            iterator=iterator.event_iterator->next;
-           
-
+            ++iterator;
         }
-        previous_iterator.event_iterator->next=&frame;
-
+        previous_iterator.setNext(frame);
     }
 }

@@ -17,13 +17,13 @@ using std::endl;
 namespace mtm{
     class FrameEvent{
         public:
-            const BaseEvent& event;
+            BaseEvent& event;
             FrameEvent* next;
-            FrameEvent(const BaseEvent& base_event,FrameEvent* next_event=NULL):event(base_event),next(next_event){};
+            FrameEvent(BaseEvent& base_event,FrameEvent* next_event=NULL);
             ~FrameEvent();
             FrameEvent(const FrameEvent& event_to_copy);
-            FrameEvent& operator=(const FrameEvent& event);
-            bool operator==(const FrameEvent& event);
+            FrameEvent& operator=(const FrameEvent& frame_event2);
+            bool operator==(const FrameEvent& frame_event2);
     };
 }
 //////////////////////////////////////////////////eventContainer/////////////////////////////////////
@@ -32,23 +32,23 @@ namespace mtm{
         protected:
             FrameEvent* first_event;//
         public:
-            EventContainer():first_event(NULL){};
+            EventContainer();
             virtual ~EventContainer()=default;
-            virtual void add(const BaseEvent& event)=0;
+            virtual void add(BaseEvent& event)=0;
             class EventIterator{
-                // protected:
-                //     FrameEvent* event_iterator;
-                public:
+                private:
                     FrameEvent* event_iterator;
+                public:
                     EventIterator(FrameEvent* ptr_to_event);
                     EventIterator(const EventIterator& iterator);
                     ~EventIterator()=default;
-                    EventIterator& operator=(const EventIterator& iterator);
+                    EventIterator& operator=(const EventIterator& iterator2);
                     void operator++();
-                    const BaseEvent& operator*()const;
-                    bool operator==(const EventIterator& iterator2);
-                    bool operator!=(const EventIterator& iterator2);
+                    BaseEvent& operator*() const;
+                    bool operator==(const EventIterator& iterator2) const;
+                    bool operator!=(const EventIterator& iterator2) const;
                     void setNext(FrameEvent* next_event);
+                    FrameEvent* framePtr() const;
 
             };
             EventIterator end();
