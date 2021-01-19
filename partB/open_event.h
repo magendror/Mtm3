@@ -2,10 +2,10 @@
 #define OPEN_EVENT_H_
 
 #include <iostream>
-#include "date_wrap.h"
+#include "../partA/date_wrap.h"
 #include "base_event.h"
 extern "C"{
-    #include "date.h"
+    #include "../partA/date.h"
 }
 
 using std::ostream;
@@ -19,11 +19,9 @@ namespace mtm{
         public:
             OpenEvent(const mtm::DateWrap event_date,const char* event_name);
             OpenEvent(const mtm::DateWrap event_date,const char* event_name,mtm::StudentList event_list);
+            OpenEvent(const mtm::DateWrap event_date,const std::string event_name);
+            OpenEvent(const mtm::DateWrap event_date,const std::string event_name,mtm::StudentList event_list);            
             ~OpenEvent();
-            /*virtual void registerParticipant(const int new_student);
-            virtual void unregisterParticipant(const int remove_student);
-            virtual void printShort(ostream& os) const;
-            virtual void printLong(ostream& os) const;*/
             OpenEvent* clone() const override;
     };
 }

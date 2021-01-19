@@ -5,6 +5,7 @@
 
 namespace mtm {
     class Exception : public std::exception {};
+    class InvalidStudent : public Exception {};
     class NegativeDays : public Exception {};
     class InvalidDate : public Exception {};
     class AlreadyInvited : public Exception {};

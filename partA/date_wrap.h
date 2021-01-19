@@ -28,7 +28,7 @@ namespace mtm{
             int month() const;  
             int day() const;
             DateWrap& operator+=(const int days);
-            DateWrap& operator++(int);
+            DateWrap operator++(int);
             DateWrap& operator=(const DateWrap& date_to_copy);
             bool operator==(const DateWrap& date_wrap2) const;
             bool operator>(const DateWrap& date_wrap2) const;

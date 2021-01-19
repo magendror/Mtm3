@@ -2,9 +2,9 @@
 #define BASE_EVENT_H_
 
 #include <iostream>
-#include "date_wrap.h"
+#include "../partA/date_wrap.h"
 extern "C"{
-    #include "date.h"
+    #include "../partA/date.h"
 }
 
 using std::ostream;
@@ -27,6 +27,9 @@ namespace mtm{
         bool remove(const int remove_student);
         bool contains(const int check_student);
         void printList(ostream& os) const;
+        StudentList& operator=(const StudentList& list2);
+        void swap(int *xp, int *yp);
+        void bubbleSort(int arr[], int n);
     };
 
     class BaseEvent{
@@ -37,7 +40,9 @@ namespace mtm{
             static std::string assign(const char* event_name);
         public:
             BaseEvent(const mtm::DateWrap event_date,const char* event_name);
+            BaseEvent(const mtm::DateWrap event_date,const std::string event_name);
             BaseEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list);
+            BaseEvent(const mtm::DateWrap event_date,const std::string event_name,StudentList event_list);
             virtual ~BaseEvent();
             virtual void registerParticipant(const int new_student);
             virtual void unregisterParticipant(const int remove_student);
@@ -48,7 +53,8 @@ namespace mtm{
             bool operator<(const BaseEvent& event2) const;
             bool sameDate(const mtm::DateWrap date2) const;
             bool operator==(const BaseEvent& event2) const;
-            int nameCompare(const BaseEvent& event2) const;//adding const
+            int nameCompare(const BaseEvent& event2) const;
+            virtual BaseEvent& operator=(const BaseEvent& event2);
     };
 }
 #endif

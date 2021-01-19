@@ -1,14 +1,35 @@
 #include "closed_event.h"
 #include "base_event.h"
 namespace mtm{
-    ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const char* event_name):
+    ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const char* event_name)try:
                                                 mtm::BaseEvent(event_date,event_name),
                                                 invited_list(mtm::StudentList()){}
+                                                catch(mtm::Exception&){
+                                                    throw;
+                                                }
+
     ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const char* event_name,
-                            const mtm::StudentList event_list,const mtm::StudentList invited_list):
+                            const mtm::StudentList event_list,const mtm::StudentList invited_list)try:
                                                 mtm::BaseEvent(event_date,event_name,event_list),
                                                 invited_list(mtm::StudentList(invited_list)){}
+                                                catch(mtm::Exception&){
+                                                    throw;
+                                                }
 
+    ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const std::string event_name)try:
+                                                mtm::BaseEvent(event_date,event_name),
+                                                invited_list(mtm::StudentList()){}
+                                                catch(mtm::Exception&){
+                                                    throw;
+                                                }
+
+    ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const std::string event_name,
+                            const mtm::StudentList event_list,const mtm::StudentList invited_list)try:
+                                                mtm::BaseEvent(event_date,event_name,event_list),
+                                                invited_list(mtm::StudentList(invited_list)){}
+                                                catch(mtm::Exception&){
+                                                    throw;
+                                                }
     ClosedEvent::~ClosedEvent(){}
 
     ClosedEvent* ClosedEvent::clone() const{
@@ -17,8 +38,8 @@ namespace mtm{
     }
 
     void ClosedEvent::registerParticipant(const int new_student){
-        if((new_student>200000)||(new_student<=0)){
-            throw RegistrationBlocked();
+        if((new_student>=1234567890)||(new_student<=0)){
+            throw InvalidStudent();
         }
         if(invited_list.contains(new_student)){
             if(list.add(new_student)==false){
@@ -38,20 +59,15 @@ namespace mtm{
             invited_list.add(new_student);
         }
     }
-/*
-    void baseEvent::unregisterParticipant(const int remove_student){
-        if(list.remove(remove_student)==false){
-            //student is not in the list
-        }
+    ClosedEvent& ClosedEvent::operator=(const ClosedEvent& event2){
+        if (this == &event2) {
+		    return *this;
+	    }
+        name=event2.name;
+        date=event2.date;
+        list=event2.list;
+        invited_list=event2.invited_list;
+        return *this;
     }
-
-    void baseEvent::printShort(ostream& os) const {
-        os<<name<<" "<<date;
-    }
-    void baseEvent::printLong(ostream& os) const {
-        os<<name<<" "<<date<<endl;
-        list.printList(os);
-    }
-*/
 
 }

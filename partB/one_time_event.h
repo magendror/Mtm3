@@ -7,21 +7,36 @@ namespace mtm{
     template <class EventType>
     class OneTimeEvent: public EventContainer{
         private:
-            EventType* event;
             FrameEvent* eventCreate(const mtm::DateWrap date,const char* name){
-                event = new EventType(date,name);
-                FrameEvent* frame = new FrameEvent(*event);
+                EventType* event = new EventType(date,name);
+                FrameEvent* frame = new FrameEvent(event);
+                return frame;
+            }
+            FrameEvent* eventCreate(const mtm::DateWrap date,const std::string name){
+                EventType* event = new EventType(date,name);
+                FrameEvent* frame = new FrameEvent(event);
                 return frame;
             }
         public:
-            OneTimeEvent(const DateWrap date,const char* name):EventContainer(){
+            OneTimeEvent(const DateWrap date,const char* name)try:EventContainer(){
                 first_event=eventCreate(date,name);
             }
+            catch(mtm::Exception&){
+                throw;
+            }
+
+            OneTimeEvent(const DateWrap date,const std::string name)try:EventContainer(){
+                first_event=eventCreate(date,name);
+            }
+            catch(mtm::Exception&){
+                throw;
+            }
+
             ~OneTimeEvent(){
-                delete event;
                 delete first_event;
             }
-            void add(BaseEvent& event) override{
+
+            void add(const BaseEvent& event) override{
                 throw NotSupported();
             }
     };

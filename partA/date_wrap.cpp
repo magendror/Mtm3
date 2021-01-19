@@ -13,13 +13,14 @@ using std::endl;
 
 namespace mtm{
 
-    DateWrap::DateWrap(int day,int month,int year):
-        date(dateCheck(day,month,year)){
-        //should add invalid date exception 
+    DateWrap::DateWrap(int day,int month,int year)
+    try: date(dateCheck(day,month,year)){}
+    catch (...) {
+        throw;
     }
     Date DateWrap::dateCheck(int day,int month,int year){
-        if((day>30||day<1)||(month>12||month<1)||(year<0)){
-            throw InvalidDate();
+        if(day>30||day<1||month>12||month<1||year<0){
+            throw mtm::InvalidDate();
         }
         return dateCreate(day,month,year);
     }
@@ -58,9 +59,10 @@ namespace mtm{
         return day;
     }
 
-    DateWrap& DateWrap::operator++(int){
+    DateWrap DateWrap::operator++(int){
+        DateWrap temp(*this);
         dateTick(date);
-        return *this;
+        return temp;
     }
     DateWrap& DateWrap::operator+=(const int days){
         if (days<0)

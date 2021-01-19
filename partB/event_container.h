@@ -2,10 +2,10 @@
 #define EVENT_CONTAINER_H_
 
 #include <iostream>
-#include "date_wrap.h"
+#include "../partA/date_wrap.h"
 #include "base_event.h"
 extern "C"{
-    #include "date.h"
+    #include "../partA/date.h"
 }
 
 using std::ostream;
@@ -17,9 +17,9 @@ using std::endl;
 namespace mtm{
     class FrameEvent{
         public:
-            BaseEvent& event;
+            BaseEvent* const event;
             FrameEvent* next;
-            FrameEvent(BaseEvent& base_event,FrameEvent* next_event=NULL);
+            FrameEvent(BaseEvent* const base_event,FrameEvent* next_event=NULL);
             ~FrameEvent();
             FrameEvent(const FrameEvent& event_to_copy);
             FrameEvent& operator=(const FrameEvent& frame_event2);
@@ -34,7 +34,7 @@ namespace mtm{
         public:
             EventContainer();
             virtual ~EventContainer()=default;
-            virtual void add(BaseEvent& event)=0;
+            virtual void add(const BaseEvent& event)=0;
             class EventIterator{
                 private:
                     FrameEvent* event_iterator;
@@ -43,7 +43,7 @@ namespace mtm{
                     EventIterator(const EventIterator& iterator);
                     ~EventIterator()=default;
                     EventIterator& operator=(const EventIterator& iterator2);
-                    void operator++();
+                    EventIterator& operator++();
                     BaseEvent& operator*() const;
                     bool operator==(const EventIterator& iterator2) const;
                     bool operator!=(const EventIterator& iterator2) const;
