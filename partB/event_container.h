@@ -51,8 +51,8 @@ namespace mtm{
                     FrameEvent* framePtr() const;
 
             };
-            EventIterator end();
-            EventIterator begin();
+            EventIterator end() const;
+            EventIterator begin() const;
     };
 }
 #endif

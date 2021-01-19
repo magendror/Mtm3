@@ -35,7 +35,8 @@ namespace mtm{
         public:
             Schedule();
             ~Schedule();
-            void addEvents(EventContainer& container);
+            void addEvents(const EventContainer& container);
+            void registerToEvent(const mtm::DateWrap date,const char* name, const int student);
 
     };
 }

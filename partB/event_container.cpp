@@ -78,11 +78,11 @@ namespace mtm{
 namespace mtm{
     EventContainer::EventContainer():first_event(NULL){}
 
-    EventContainer::EventIterator EventContainer::end(){
+    EventContainer::EventIterator EventContainer::end() const{
         return EventContainer::EventIterator(NULL);
     }
 
-    EventContainer::EventIterator EventContainer::begin(){
+    EventContainer::EventIterator EventContainer::begin() const{
         return EventContainer::EventIterator(first_event);
     }
 }

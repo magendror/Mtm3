@@ -17,6 +17,8 @@ namespace mtm {
     class InvalidInterval : public Exception {};
     class NotSupported : public Exception {};
     class EndOfContainer : public Exception {};
+    class EventAlreadyExists : public Exception {};
+    class EventDoesNotExist : public Exception {};    
 }
 
 #endif
