@@ -18,7 +18,8 @@ namespace mtm {
     class NotSupported : public Exception {};
     class EndOfContainer : public Exception {};
     class EventAlreadyExists : public Exception {};
-    class EventDoesNotExist : public Exception {};    
+    class EventDoesNotExist : public Exception {};
+       
 }
 
 #endif

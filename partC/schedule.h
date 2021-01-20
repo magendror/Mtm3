@@ -37,8 +37,28 @@ namespace mtm{
             ~Schedule();
             void addEvents(const EventContainer& container);
             void registerToEvent(const mtm::DateWrap date,const char* name, const int student);
+            void printAllEvents();
+            void printMonthEvents(const int month,const int year);
+            void printEventDetails(const mtm::DateWrap date,const char* name);
+            template <class predicate>
+            void printSomeEvents(predicate pred,bool verbose=false);
 
     };
+    
+    template <class predicate>
+    void Schedule<predicate>::printSomeEvents(predicate pred,bool verbose=false){
+        for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(pred(iterator)){
+                if(verbose){
+                    BaseEvent::printLong(iterator);
+                }
+                else{
+                    BaseEvent::printShort(iterator);
+                }
+            }
+        }
+
+    }
 }
 
 #endif
