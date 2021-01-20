@@ -33,7 +33,7 @@ namespace mtm{
             ~Schedule();
             void addEvents(const EventContainer& container);
             void registerToEvent(const mtm::DateWrap date,const char* name, const int student);
-
+            void unregisterFromoEvent(const mtm::DateWrap date,const char* name, const int student);
     };
 }
 
