@@ -3,7 +3,7 @@
 
 namespace mtm{
 
-    Schedule::Schedule():schedule_vector(){}
+    Schedule::Schedule():schedule_vector(std::vector<BaseEvent>()){}
 
     void Schedule::addEvents(const EventContainer& container){
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();
@@ -15,8 +15,7 @@ namespace mtm{
             }   
         }
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();++container_iterator){
-                schedule_vector.resize(schedule_vector.size() + 1);
-                schedule_vector.assign(1,*container_iterator);
+                schedule_vector.push_back(*container_iterator);
         }   
     }
     void Schedule::registerToEvent(const mtm::DateWrap date,const char* name, const int student){

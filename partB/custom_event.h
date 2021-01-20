@@ -20,6 +20,7 @@ namespace mtm{
         void registerParticipant(const int new_student) override;
         CustomEvent* clone() const override;
         CustomEvent<CanRegister>& operator=(const CustomEvent<CanRegister>& event2);
+        bool operator==(const CustomEvent<CanRegister>& event2);
     };
 
     template <class CanRegister>
@@ -80,6 +81,11 @@ namespace mtm{
         list=event2.list;
         register_key=event2.register_key;
         return *this;
+    }
+
+    template <class CanRegister>
+        bool CustomEvent<CanRegister>::operator==(const CustomEvent<CanRegister>& event2){
+        return((date==event2.date)&&(name==event2.name)&&(list==event2.list));
     }
 
 }

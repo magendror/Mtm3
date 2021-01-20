@@ -13,7 +13,7 @@
 #include "../partB/recurring_event.h"
 #include <iostream>
 #include "../partA/date_wrap.h"
-#include <vector> 
+#include <vector>
 #include <algorithm>
 
 using std::ostream;
@@ -22,10 +22,6 @@ using std::cerr;
 using std::cin;
 using std::endl;
 typedef mtm::EventContainer::EventIterator ContainerIterator;
-
-extern "C"{
-    #include "../partA/date.h"
-}
 
 namespace mtm{
 
