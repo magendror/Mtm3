@@ -25,9 +25,10 @@ namespace mtm{
         StudentList(const StudentList& to_clone);
         bool add(const int new_student);
         bool remove(const int remove_student);
-        bool contains(const int check_student);
+        bool contains(const int check_student) const;
         void printList(ostream& os) const;
         StudentList& operator=(const StudentList& list2);
+        bool operator==(const StudentList& list2) const;
         void swap(int *xp, int *yp);
         void bubbleSort(int arr[], int n);
     };

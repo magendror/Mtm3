@@ -13,7 +13,7 @@
 #include "../partB/recurring_event.h"
 #include <iostream>
 #include "../partA/date_wrap.h"
-#include <vector> 
+#include <vector>
 #include <algorithm>
 
 using std::ostream;
@@ -22,10 +22,6 @@ using std::cerr;
 using std::cin;
 using std::endl;
 typedef mtm::EventContainer::EventIterator ContainerIterator;
-
-extern "C"{
-    #include "../partA/date.h"
-}
 
 namespace mtm{
 
@@ -40,9 +36,11 @@ namespace mtm{
             void printAllEvents();
             void printMonthEvents(const int month,const int year);
             void printEventDetails(const mtm::DateWrap date,const char* name);
+            void unregisterFromoEvent(const mtm::DateWrap date,const char* name, const int student);
             template <class predicate>
             void printSomeEvents(predicate pred,bool verbose=false);
 
+            
     };
     
     template <class predicate>

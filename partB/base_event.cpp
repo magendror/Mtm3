@@ -35,7 +35,19 @@ namespace mtm{
         bubbleSort(students,participants);
         return true;
     }
-    
+
+    bool StudentList::operator==(const StudentList& list2) const{
+        if(participants!=list2.participants){
+            return false;
+        }
+        for(int i=0;i<participants;i++){
+            if(this->contains(list2.students[i])==false){
+                return false;
+            }
+        }
+        return true;
+    }
+
     bool StudentList::remove(const int remove_student){
         if(this->contains(remove_student)==false){
             return false;
@@ -52,8 +64,8 @@ namespace mtm{
         students = temp;
         return true;
     }
-
-    bool StudentList::contains(const int check_student){
+    
+    bool StudentList::contains(int check_student) const {
         for (int i=0;i<participants;i++){
             if(students[i]==check_student){
                 return true;
@@ -80,7 +92,6 @@ namespace mtm{
         delete[] students;
         students=temp_students;
         return *this;
-
     }
 
     void StudentList::swap(int *xp, int *yp){ 
@@ -203,7 +214,7 @@ namespace mtm{
         
     }
     bool BaseEvent::operator==(const BaseEvent& event2) const{
-        return((date==event2.date)&&(name==event2.name));
+        return((date==event2.date)&&(name==event2.name)&&(list==event2.list));
     }
 
     int BaseEvent::nameCompare(const BaseEvent& event2)const{

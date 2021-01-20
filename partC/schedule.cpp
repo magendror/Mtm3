@@ -3,7 +3,7 @@
 
 namespace mtm{
 
-    Schedule::Schedule():schedule_vector(){}
+    Schedule::Schedule():schedule_vector(std::vector<BaseEvent>()){}
 
     void Schedule::addEvents(const EventContainer& container){
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();
@@ -15,8 +15,7 @@ namespace mtm{
             }   
         }
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();++container_iterator){
-                schedule_vector.resize(schedule_vector.size() + 1);
-                schedule_vector.assign(1,*container_iterator);
+                schedule_vector.push_back(*container_iterator);
         }   
     }
     void Schedule::registerToEvent(const mtm::DateWrap date,const char* name, const int student){
@@ -24,7 +23,8 @@ namespace mtm{
         for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
             if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
                 try{
-                    (*iterator).registerParticipant(student);  
+                    (*iterator).registerParticipant(student);
+                    return;  
                 }
                 catch(AlreadyRegistered&){
                     throw AlreadyRegistered();
@@ -82,5 +82,19 @@ namespace mtm{
     
 
 
-
+    void Schedule::unregisterFromoEvent(const mtm::DateWrap date,const char* name, const int student){
+        mtm::OpenEvent temp(date,name);
+        for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
+                try{
+                    (*iterator).registerParticipant(student);
+                    return;  
+                }
+                catch(NotRegistered&){
+                    throw NotRegistered();
+                }
+            }
+        }
+        throw EventDoesNotExist();
+    }
 }
