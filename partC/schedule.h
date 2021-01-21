@@ -23,28 +23,28 @@ using std::cin;
 using std::endl;
 typedef mtm::EventContainer::EventIterator ContainerIterator;
 
-namespace mtm{
+namespace mtm {
 
     class Schedule{
         private:
-            std::vector<BaseEvent> schedule_vector;
+            std::vector<BaseEvent*> schedule_vector;
         public:
             Schedule();
             ~Schedule();
             void addEvents(const EventContainer& container);
             void registerToEvent(const mtm::DateWrap date,const char* name, const int student);
-            void printAllEvents();
-            void printMonthEvents(const int month,const int year);
-            void printEventDetails(const mtm::DateWrap date,const char* name);
-            void unregisterFromoEvent(const mtm::DateWrap date,const char* name, const int student);
-            template <class predicate>
-            void printSomeEvents(predicate pred,bool verbose=false){
-                for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-                    if(pred(*(iterator))){
+            void unregisterFromEvent(const mtm::DateWrap date,const char* name, const int student);
+            void printAllEvents() const;
+            void printMonthEvents(const int month,const int year) const;
+            void printEventDetails(const mtm::DateWrap date,const char* name) const;      
+            const BaseEvent& constConvresion(BaseEvent& event);
+            template <class Predicate>
+            void printSomeEvents(Predicate pred,bool verbose=false) const{
+                for(std::vector<BaseEvent>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+                    if(pred(*iterator)){
                         if(verbose){
                             (*iterator).printLong(std::cout);
                         }
-
                         else{
                             (*iterator).printShort(std::cout);
                         }
@@ -52,21 +52,6 @@ namespace mtm{
                 }
             } 
     };
-    
-    // template <class predicate>
-    // void Schedule<predicate>::printSomeEvents(predicate pred,bool verbose=false){
-    //     for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-    //         if(pred(*(iterator))){
-    //             if(verbose){
-    //                 BaseEvent::printLong(iterator);
-    //             }
-    //             else{
-    //                 BaseEvent::printShort(iterator);
-    //             }
-    //         }
-    //     }
-
-    // }
 }
 
 #endif

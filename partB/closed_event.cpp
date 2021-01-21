@@ -74,4 +74,7 @@ namespace mtm{
         return((date==event2.date)&&(name==event2.name)&&(list==event2.list)&&(invited_list==event2.invited_list));
     }
 
+    bool ClosedEvent::operator==(const BaseEvent& event2) const{
+        return((event2.sameDate(date))&&(event2.nameCompare(*this)==0));
+    }
 }

@@ -191,8 +191,11 @@ namespace mtm{
         if(date<event2.date){
             return true;
         }
-        else{
+        else if (date>event2.date){
             return false;
+        }
+        else {
+            return name<event2.name;
         }
     }
 
@@ -200,10 +203,14 @@ namespace mtm{
         if(date>event2.date){
             return true;
         }
-        else{
+        else if (date<event2.date){
             return false;
         }
+        else {
+            return name>event2.name;
+        }
     }
+
     bool BaseEvent::sameDate(const mtm::DateWrap date2) const{
         if(date==date2){
             return true;
@@ -222,6 +229,19 @@ namespace mtm{
             return 1;
         }
         else if (name<event2.name){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    int BaseEvent::nameCompare(const char* name2) const{
+        std::string temp = name2;
+        if(name>temp){
+            return 1;
+        }
+        else if (name<temp){
             return -1;
         }
         else{

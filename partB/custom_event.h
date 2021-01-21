@@ -21,6 +21,7 @@ namespace mtm{
         CustomEvent* clone() const override;
         CustomEvent<CanRegister>& operator=(const CustomEvent<CanRegister>& event2);
         bool operator==(const CustomEvent<CanRegister>& event2);
+        bool operator==(const BaseEvent& event2) const;
     };
 
     template <class CanRegister>
@@ -84,10 +85,14 @@ namespace mtm{
     }
 
     template <class CanRegister>
-        bool CustomEvent<CanRegister>::operator==(const CustomEvent<CanRegister>& event2){
+    bool CustomEvent<CanRegister>::operator==(const CustomEvent<CanRegister>& event2){
         return((date==event2.date)&&(name==event2.name)&&(list==event2.list));
     }
-
+    
+    template <class CanRegister>
+    bool CustomEvent<CanRegister>::operator==(const BaseEvent& event2) const{
+        return((event2.sameDate(date))&&(event2.nameCompare(*this)==0));
+    }
 }
 
 

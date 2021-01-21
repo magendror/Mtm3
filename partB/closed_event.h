@@ -30,6 +30,7 @@ namespace mtm{
             void addInvitee(const int new_student);
             ClosedEvent& operator=(const ClosedEvent& event2);
             bool operator==(const ClosedEvent& event2) const;
+            bool operator==(const BaseEvent& event2) const;
             ClosedEvent* clone() const override;
     };
 }

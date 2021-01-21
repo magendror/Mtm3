@@ -30,4 +30,14 @@ namespace mtm{
         OpenEvent* copy_of_event = new OpenEvent(date,name.c_str(),list);
         return copy_of_event;
     }
+
+    bool OpenEvent::operator==(const OpenEvent& event2) const{
+        return((event2.sameDate(date))&&(event2.nameCompare(*this)==0));
+    }
+
+    bool OpenEvent::operator==(const BaseEvent& event2) const{
+        return((event2.sameDate(date))&&(event2.nameCompare(*this)==0));
+    }
+
+    
 }

@@ -23,6 +23,8 @@ namespace mtm{
             OpenEvent(const mtm::DateWrap event_date,const std::string event_name,mtm::StudentList event_list);            
             ~OpenEvent();
             OpenEvent* clone() const override;
+            bool operator==(const OpenEvent& event2) const;
+            bool operator==(const BaseEvent& event2) const;
     };
 }
 #endif
