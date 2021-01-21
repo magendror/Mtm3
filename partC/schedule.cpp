@@ -5,6 +5,12 @@
 namespace mtm {
 
     Schedule::Schedule():schedule_vector(std::vector<BaseEvent*>()){}
+    Schedule::~Schedule(){
+        for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            delete iterator;
+        }
+
+    }
 
     void Schedule::addEvents(const EventContainer& container){
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();
@@ -21,10 +27,10 @@ namespace mtm {
     
     void Schedule::registerToEvent(const mtm::DateWrap date,const char* name, const int student){
         mtm::OpenEvent temp(date,name);
-        for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
+        for(std::vector<BaseEvent*>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(((*(*iterator)).nameCompare(temp)==0)&&((*(*iterator)).sameDate(date))){
                 try{
-                    (*iterator).registerParticipant(student);
+                    (*(*iterator)).registerParticipant(student);
                     return;  
                 }
                 catch(AlreadyRegistered&){
@@ -53,16 +59,16 @@ namespace mtm {
 
     void Schedule::printAllEvents() const{
         std::sort(schedule_vector.begin(), schedule_vector.end(), compareFunc);
-        for(std::vector<BaseEvent>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            (*iterator).printShort(std::cout);
+        for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            (*(*iterator)).printShort(std::cout);
             //printf("\n");
         }
     }
 
     void Schedule::printMonthEvents(const int month,const int year) const{
-        for(std::vector<BaseEvent>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(sameMonthAndYear(month,year,*(iterator))){  
-                (*iterator).printShort(std::cout);
+        for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(sameMonthAndYear(month,year,*(*(iterator)))){  
+                (*(*iterator)).printShort(std::cout);
                 //printf("\n");
             }    
         }
@@ -71,10 +77,10 @@ namespace mtm {
     void Schedule::printEventDetails(const mtm::DateWrap date,const char* name) const{
         mtm::OpenEvent temp(date,name);
         bool result=false;
-        for(std::vector<BaseEvent>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
+        for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(((*(*iterator)).nameCompare(temp)==0)&&((*(*iterator)).sameDate(date))){
                 result=true;
-                (*iterator).printLong(std::cout);
+                (*(*iterator)).printLong(std::cout);
             }
         }
         if(!result){
@@ -84,10 +90,10 @@ namespace mtm {
 
     void Schedule::unregisterFromEvent(const mtm::DateWrap date,const char* name, const int student){
         mtm::OpenEvent temp(date,name);
-        for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
+        for(std::vector<BaseEvent*>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            if(((*(*iterator)).nameCompare(temp)==0)&&((*(*iterator)).sameDate(date))){
                 try{
-                    (*iterator).registerParticipant(student);
+                    (*(*iterator)).registerParticipant(student);
                     return;  
                 }
                 catch(NotRegistered&){

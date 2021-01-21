@@ -40,13 +40,13 @@ namespace mtm {
             const BaseEvent& constConvresion(BaseEvent& event);
             template <class Predicate>
             void printSomeEvents(Predicate pred,bool verbose=false) const{
-                for(std::vector<BaseEvent>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-                    if(pred(*iterator)){
+                for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+                    if(pred(*(*iterator))){
                         if(verbose){
-                            (*iterator).printLong(std::cout);
+                            (*(*iterator)).printLong(std::cout);
                         }
                         else{
-                            (*iterator).printShort(std::cout);
+                            (*(*iterator)).printShort(std::cout);
                         }
                     }
                 }
