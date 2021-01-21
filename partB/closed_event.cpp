@@ -71,7 +71,7 @@ namespace mtm{
     }
 
     bool ClosedEvent::operator==(const ClosedEvent& event2) const{
-        return((date==event2.date)&&(name==event2.name)&&(list==event2.list)&&(invited_list==event2.invited_list));
+        return((date==event2.date)&&(name==event2.name));
     }
 
     bool ClosedEvent::operator==(const BaseEvent& event2) const{

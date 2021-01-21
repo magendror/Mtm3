@@ -221,7 +221,7 @@ namespace mtm{
         
     }
     bool BaseEvent::operator==(const BaseEvent& event2) const{
-        return((date==event2.date)&&(name==event2.name)&&(list==event2.list));
+        return((date==event2.date)&&(name==event2.name));
     }
 
     int BaseEvent::nameCompare(const BaseEvent& event2)const{

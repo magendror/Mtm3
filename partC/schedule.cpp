@@ -6,23 +6,27 @@ namespace mtm {
 
     Schedule::Schedule():schedule_vector(std::vector<BaseEvent*>()){}
     Schedule::~Schedule(){
-        for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            delete iterator;
+        for(std::vector<BaseEvent*>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+            delete *iterator;
         }
+    }
 
+    bool compareFunc(BaseEvent* event1,BaseEvent* event2){
+        return *event1<*event2;
     }
 
     void Schedule::addEvents(const EventContainer& container){
-        for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();
-                                                                                        ++container_iterator){
-            std::vector<BaseEvent*>::iterator iterator = std::find(schedule_vector.begin(),schedule_vector.end(),*container_iterator);
-            if(iterator!=schedule_vector.end()){
-                throw EventAlreadyExists();
-            }   
+        for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();++container_iterator){
+            for(std::vector<BaseEvent*>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+                if(*container_iterator==*(*iterator)){
+                    throw EventAlreadyExists();
+                }
+            } 
         }
         for (ContainerIterator container_iterator = container.begin(); container_iterator != container.end();++container_iterator){
                 schedule_vector.push_back((*container_iterator).clone());
-        }   
+        }
+        std::sort(schedule_vector.begin(), schedule_vector.end(), compareFunc);   
     }
     
     void Schedule::registerToEvent(const mtm::DateWrap date,const char* name, const int student){
@@ -43,10 +47,6 @@ namespace mtm {
         }
         throw EventDoesNotExist();
     }
-
-    bool compareFunc(const BaseEvent& event1,const BaseEvent& event2){
-        return event1>event2;
-    }
     
     bool sameMonthAndYear(const int month,const int year,const BaseEvent& event){
         for(int i=1;i<=30;i++){
@@ -58,10 +58,9 @@ namespace mtm {
     }
 
     void Schedule::printAllEvents() const{
-        std::sort(schedule_vector.begin(), schedule_vector.end(), compareFunc);
         for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
             (*(*iterator)).printShort(std::cout);
-            //printf("\n");
+            cout<<endl;
         }
     }
 
@@ -69,7 +68,7 @@ namespace mtm {
         for(std::vector<BaseEvent*>::const_iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
             if(sameMonthAndYear(month,year,*(*(iterator)))){  
                 (*(*iterator)).printShort(std::cout);
-                //printf("\n");
+                cout<<endl;
             }    
         }
     }
@@ -81,6 +80,7 @@ namespace mtm {
             if(((*(*iterator)).nameCompare(temp)==0)&&((*(*iterator)).sameDate(date))){
                 result=true;
                 (*(*iterator)).printLong(std::cout);
+                cout<<endl;
             }
         }
         if(!result){
@@ -93,7 +93,7 @@ namespace mtm {
         for(std::vector<BaseEvent*>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
             if(((*(*iterator)).nameCompare(temp)==0)&&((*(*iterator)).sameDate(date))){
                 try{
-                    (*(*iterator)).registerParticipant(student);
+                    (*(*iterator)).unregisterParticipant(student);
                     return;  
                 }
                 catch(NotRegistered&){

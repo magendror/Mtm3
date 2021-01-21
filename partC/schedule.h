@@ -48,6 +48,7 @@ namespace mtm {
                         else{
                             (*(*iterator)).printShort(std::cout);
                         }
+                        cout<<endl;
                     }
                 }
             } 
