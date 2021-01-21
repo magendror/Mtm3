@@ -38,25 +38,35 @@ namespace mtm{
             void printEventDetails(const mtm::DateWrap date,const char* name);
             void unregisterFromoEvent(const mtm::DateWrap date,const char* name, const int student);
             template <class predicate>
-            void printSomeEvents(predicate pred,bool verbose=false);
+            void printSomeEvents(predicate pred,bool verbose=false){
+                for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+                    if(pred(*(iterator))){
+                        if(verbose){
+                            (*iterator).printLong(std::cout);
+                        }
 
-            
+                        else{
+                            (*iterator).printShort(std::cout);
+                        }
+                    }
+                }
+            } 
     };
     
-    template <class predicate>
-    void Schedule<predicate>::printSomeEvents(predicate pred,bool verbose=false){
-        for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(pred(iterator)){
-                if(verbose){
-                    BaseEvent::printLong(iterator);
-                }
-                else{
-                    BaseEvent::printShort(iterator);
-                }
-            }
-        }
+    // template <class predicate>
+    // void Schedule<predicate>::printSomeEvents(predicate pred,bool verbose=false){
+    //     for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
+    //         if(pred(*(iterator))){
+    //             if(verbose){
+    //                 BaseEvent::printLong(iterator);
+    //             }
+    //             else{
+    //                 BaseEvent::printShort(iterator);
+    //             }
+    //         }
+    //     }
 
-    }
+    // }
 }
 
 #endif

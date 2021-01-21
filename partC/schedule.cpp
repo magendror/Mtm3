@@ -1,5 +1,6 @@
 #include "schedule.h"
 #include "../partB/base_event.h"
+#include <iostream>
 
 namespace mtm{
 
@@ -36,10 +37,10 @@ namespace mtm{
         }
         throw EventDoesNotExist();
     }
-    bool compareFunc(const BaseEvent event1,const BaseEvent event2){
+    bool compareFunc(const BaseEvent& event1,const BaseEvent& event2){
         return event1>event2;
     }
-    bool sameMonthAndYear(const int month,const int year,const BaseEvent event){
+    bool sameMonthAndYear(const int month,const int year,const BaseEvent& event){
         bool result=false;
         for(int i=0;i<=30;i++){
             if(event.sameDate(DateWrap(i,month,year))){
@@ -49,30 +50,30 @@ namespace mtm{
         return result;
     }
 
-    void printAllEvents(){
+    void Schedule::printAllEvents(){
         std::sort(schedule_vector.begin(), schedule_vector.end(), compareFunc);
         for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            BaseEvent::printShort(iterator);
+            (*iterator).printShort(std::cout);
             printf("\n");
         }
     }
 
-    void printMonthEvents(const int month,const int year){
+    void Schedule::printMonthEvents(const int month,const int year){
         for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(sameMonthAndYear(month,year,iterator)){  
-                BaseEvent::printShort(iterator);
+            if(sameMonthAndYear(month,year,*(iterator))){  
+                (*iterator).printShort(std::cout);
                 printf("\n");
             }    
         }
     }
 
-    void printEventDetails(const mtm::DateWrap date,const char* name){
-        BaseEvent event(date,name);
+    void Schedule::printEventDetails(const mtm::DateWrap date,const char* name){
+        mtm::OpenEvent temp(date,name);
         bool result=false;
         for(std::vector<BaseEvent>::iterator iterator = schedule_vector.begin();iterator!=schedule_vector.end();++iterator){
-            if(iterator==event){
+            if(((*iterator).nameCompare(temp)==0)&&((*iterator).sameDate(date))){
                 result=true;
-                BaseEvent::printLong(iterator);
+                (*iterator).printLong(std::cout);
             }
         }
         if(!result){
