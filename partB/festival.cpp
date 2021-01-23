@@ -21,7 +21,7 @@ namespace mtm{
             
         }
         BaseEvent* clone = event_reference.clone();
-        FrameEvent* frame = new FrameEvent(clone);//
+        FrameEvent* frame = new FrameEvent(clone);
         if(first_event==NULL){
             first_event=frame;
             return;
@@ -39,7 +39,7 @@ namespace mtm{
                     first_event=frame;
                 }
                 else{
-                    previous_iterator.setNext(frame);//maybe here saves pointer to local frame?
+                    previous_iterator.setNext(frame);
                     frame->next=iterator.framePtr();  
                 }
                 return;

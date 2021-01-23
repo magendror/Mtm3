@@ -6,6 +6,9 @@
 #include "base_event.h"
 
 namespace mtm{
+    int const MAX_STUDENT=1234567890;
+    int const MIN_STUDENT=0;
+
     template <class CanRegister>
     class CustomEvent : public BaseEvent
     {
@@ -13,9 +16,11 @@ namespace mtm{
         CanRegister register_key;
     public:
         CustomEvent(const mtm::DateWrap event_date,const char* event_name,CanRegister register_func);
-        CustomEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list,CanRegister register_func);
+        CustomEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list,
+                                                                        CanRegister register_func);
         CustomEvent(const mtm::DateWrap event_date,const std::string event_name,CanRegister register_func);
-        CustomEvent(const mtm::DateWrap event_date,const std::string event_name,StudentList event_list,CanRegister register_func);
+        CustomEvent(const mtm::DateWrap event_date,const std::string event_name,StudentList event_list,
+                                                                        CanRegister register_func);
         ~CustomEvent();
         void registerParticipant(const int new_student) override;
         CustomEvent* clone() const override;
@@ -25,26 +30,32 @@ namespace mtm{
     };
 
     template <class CanRegister>
-    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const char* event_name,CanRegister register_func)try:
-                                                        mtm::BaseEvent(event_date,event_name),register_key(register_func){}
+    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const char* event_name,
+                                                CanRegister register_func)try:
+                                                mtm::BaseEvent(event_date,event_name),register_key(register_func){}
                                                 catch(mtm::Exception&){
                                                     throw;
                                                 }
     template <class CanRegister>
-    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list,CanRegister register_func)try:
-                                                mtm::BaseEvent(event_date,event_name,event_list),register_key(register_func){}
+    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const char* event_name,StudentList event_list,
+                                                CanRegister register_func)try:
+                                                mtm::BaseEvent(event_date,event_name,event_list),
+                                                register_key(register_func){}
                                                 catch(mtm::Exception&){
                                                     throw;
                                                 }
     template <class CanRegister>
-    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const std::string event_name,CanRegister register_func)try:
-                                                        mtm::BaseEvent(event_date,event_name),register_key(register_func){}
+    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const std::string event_name,
+                                                CanRegister register_func)try:
+                                                mtm::BaseEvent(event_date,event_name),register_key(register_func){}
                                                 catch(mtm::Exception&){
                                                     throw;
                                                 }
     template <class CanRegister>
-    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const std::string event_name,StudentList event_list,CanRegister register_func)try:
-                                                mtm::BaseEvent(event_date,event_name,event_list),register_key(register_func){}
+    CustomEvent<CanRegister>::CustomEvent(const mtm::DateWrap event_date,const std::string event_name,
+                                                StudentList event_list,CanRegister register_func)try:
+                                                mtm::BaseEvent(event_date,event_name,event_list),
+                                                register_key(register_func){}
                                                 catch(mtm::Exception&){
                                                     throw;
                                                 }
@@ -54,7 +65,7 @@ namespace mtm{
 
     template <class CanRegister>
     void CustomEvent<CanRegister>::registerParticipant(const int new_student){
-        if((new_student>=1234567890)||(new_student<=0)){
+        if((new_student>=MAX_STUDENT)||(new_student<=MIN_STUDENT)){
             throw InvalidStudent();
         }
         if (register_key(new_student)==true){

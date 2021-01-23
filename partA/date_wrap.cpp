@@ -13,13 +13,20 @@ using std::endl;
 
 namespace mtm{
 
+    const int MAX_DAYS = 30;
+    const int MIN_DAYS = 1;
+    const int MIN_MONTH = 1;
+    const int MAX_MONTH = 12;
+    const int MIN_YEAR = 12;
+
     DateWrap::DateWrap(int day,int month,int year)
     try: date(dateCheck(day,month,year)){}
     catch (...) {
         throw;
     }
+
     Date DateWrap::dateCheck(int day,int month,int year){
-        if(day>30||day<1||month>12||month<1||year<0){
+        if(day>MAX_DAYS||day<MIN_DAYS||month>MAX_MONTH||month<MIN_MONTH||year<MIN_YEAR){
             throw mtm::InvalidDate();
         }
         return dateCreate(day,month,year);
@@ -48,11 +55,13 @@ namespace mtm{
         dateGet(date,&day,&month,&year);
         return year;
     }
+
     int DateWrap::month() const{
         int day,month,year;
         dateGet(date,&day,&month,&year);
         return month;
-    }    
+    }
+
     int DateWrap::day() const{
         int day,month,year;
         dateGet(date,&day,&month,&year);
@@ -64,6 +73,7 @@ namespace mtm{
         dateTick(date);
         return temp;
     }
+
     DateWrap& DateWrap::operator+=(const int days){
         if (days<0)
         {
@@ -83,6 +93,7 @@ namespace mtm{
             return false;
         }
     }
+
     bool DateWrap::operator<(const DateWrap& date_wrap2) const {
         if(dateCompare(date,date_wrap2.date)<0){
             return true;
@@ -122,7 +133,7 @@ namespace mtm{
     bool DateWrap::operator!=(const DateWrap& date_wrap2) const{
         return !(date==date_wrap2.date);
     }
-    //need to add to public with a friend
+
     ostream& operator<<(ostream& os,const DateWrap& date){
         return os<<date.day()<<"/"<<date.month()<<"/"<<date.year();
     }
@@ -146,5 +157,4 @@ namespace mtm{
         new_date+=days;
         return new_date;
     }
-
 }

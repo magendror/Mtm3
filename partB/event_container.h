@@ -15,6 +15,7 @@ using std::cin;
 using std::endl;
 //////////////////////////////////////////////////FrameEvent/////////////////////////////////////////
 namespace mtm{
+    //frame Event is a class which holds a pointer to an event and the next one in the Linked List
     class FrameEvent{
         public:
             BaseEvent* const event;
@@ -30,7 +31,7 @@ namespace mtm{
 namespace mtm{
     class EventContainer{
         protected:
-            FrameEvent* first_event;//
+            FrameEvent* first_event;
         public:
             EventContainer();
             virtual ~EventContainer()=default;

@@ -14,6 +14,7 @@ using std::cin;
 using std::endl;
 
 namespace mtm{
+    //StudentList is a helping class which saves the student using a reallocated arrey
     class StudentList {
         private:
         int participants;

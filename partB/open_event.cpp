@@ -18,7 +18,8 @@ namespace mtm{
                                                     throw;
                                                 }
 
-    OpenEvent::OpenEvent(const mtm::DateWrap event_date,const std::string event_name,const mtm::StudentList event_list)try:
+    OpenEvent::OpenEvent(const mtm::DateWrap event_date,const std::string event_name,
+                                                const mtm::StudentList event_list)try:
                                                 mtm::BaseEvent(event_date,event_name,event_list){}
                                                 catch(mtm::Exception&){
                                                     throw;

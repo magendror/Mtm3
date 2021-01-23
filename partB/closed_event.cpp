@@ -1,6 +1,9 @@
 #include "closed_event.h"
 #include "base_event.h"
 namespace mtm{
+    int const MAX_STUDENT=1234567890;
+    int const MIN_STUDENT=0;
+
     ClosedEvent::ClosedEvent(const mtm::DateWrap event_date,const char* event_name)try:
                                                 mtm::BaseEvent(event_date,event_name),
                                                 invited_list(mtm::StudentList()){}
@@ -38,7 +41,7 @@ namespace mtm{
     }
 
     void ClosedEvent::registerParticipant(const int new_student){
-        if((new_student>=1234567890)||(new_student<=0)){
+        if((new_student>=MAX_STUDENT)||(new_student<=MIN_STUDENT)){
             throw InvalidStudent();
         }
         if(invited_list.contains(new_student)){

@@ -1,7 +1,13 @@
 #include "base_event.h"
 
 namespace mtm{
-////////////////////////////////////////studentList////////////////////////////////////////////////
+////////////////////////////////////////studentList/////////////////////////////////////////////////////
+    int const MAX_STUDENT=1234567890;
+    int const MIN_STUDENT=0;
+    int const FIRST_NAME_GREATER=1;
+    int const SECOND_NAME_GREATER=-1;
+    int const SAME_NAME=0;
+
     StudentList::StudentList ():participants(0),students(new int[1]){
         }
     
@@ -18,7 +24,7 @@ namespace mtm{
     }
 
     bool StudentList::add(const int new_student){
-        if((new_student>=1234567890)||(new_student<=0)){
+        if((new_student>=MAX_STUDENT)||(new_student<=MIN_STUDENT)){
             throw InvalidStudent();
         }
         if(this->contains(new_student)==true){
@@ -100,25 +106,20 @@ namespace mtm{
         *yp = temp; 
     } 
   
-    // An optimized version of Bubble Sort 
     void StudentList::bubbleSort(int arr[], int n){ 
         int i, j; 
         bool swapped; 
-        for (i = 0; i < n-1; i++) 
-        { 
+        for (i = 0; i < n-1; i++){ 
             swapped = false; 
-            for (j = 0; j < n-i-1; j++) 
-            { 
-                if (arr[j] > arr[j+1]) 
-                { 
-                swap(&arr[j], &arr[j+1]); 
-                swapped = true; 
+            for (j = 0; j < n-i-1; j++){ 
+                if (arr[j] > arr[j+1]){ 
+                    swap(&arr[j], &arr[j+1]); 
+                    swapped = true; 
                 } 
             } 
-        
-            // IF no two elements were swapped by inner loop, then break 
-            if (swapped == false) 
-                break; 
+            if (swapped == false){ 
+                break;
+            } 
         } 
     }
     
@@ -226,26 +227,26 @@ namespace mtm{
 
     int BaseEvent::nameCompare(const BaseEvent& event2)const{
         if(name>event2.name){
-            return 1;
+            return FIRST_NAME_GREATER;
         }
         else if (name<event2.name){
-            return -1;
+            return SECOND_NAME_GREATER;
         }
         else{
-            return 0;
+            return SAME_NAME;
         }
     }
 
     int BaseEvent::nameCompare(const char* name2) const{
         std::string temp = name2;
         if(name>temp){
-            return 1;
+            return FIRST_NAME_GREATER;
         }
         else if (name<temp){
-            return -1;
+            return SECOND_NAME_GREATER;
         }
         else{
-            return 0;
+            return SAME_NAME;
         }
     }
 
